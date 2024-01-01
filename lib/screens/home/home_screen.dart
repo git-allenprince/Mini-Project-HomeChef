@@ -13,19 +13,43 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(title: Text('HomeChef')),
         body: Center(
-          child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                  backgroundColor: Theme.of(context).primaryColor),
-              child: Text(
-                'select location',
-                style: Theme.of(context)
-                    .textTheme
-                    .headlineSmall
-                    ?.copyWith(color: Colors.white),
-              ),
-              onPressed: () {
-                Navigator.pushNamed(context, '/filter');
-              }),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: Theme.of(context).primaryColor),
+                  child: Text(
+                    'select location',
+                    style: Theme.of(context)
+                        .textTheme
+                        .headlineSmall
+                        ?.copyWith(color: Colors.white),
+                  ),
+                  onPressed: () {
+                    Navigator.pushNamed(context,
+                        '/Location'); //dont think we need this location page.
+                  }),
+
+              //
+              // i am adding this cos the homepage is not done yet and i need to test the page.
+              //
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    backgroundColor: Theme.of(context).primaryColor),
+                onPressed: () {
+                  Navigator.pushNamed(context, '/filter');
+                },
+                child: Text(
+                  'Filter(look code bro)',
+                  style: Theme.of(context)
+                      .textTheme
+                      .headlineSmall
+                      ?.copyWith(color: Colors.white),
+                ),
+              )
+            ],
+          ),
         ));
   }
 }
