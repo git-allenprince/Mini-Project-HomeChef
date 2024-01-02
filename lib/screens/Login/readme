@@ -1,0 +1,18 @@
+    Replace this with your actual validation logic
+
+    DID A LIL RESEARCH AND ITS SOMETHING LIKE
+     try {
+      UserCredential userCredential = await _auth.signInWithEmailAndPassword(
+        email: _emailController.text,
+        password: _passwordController.text,
+      );
+
+      // Handle successful login, e.g., navigate to the home screen
+      print("User logged in: ${userCredential.user?.email}");
+
+      // Navigate to the home screen (replace 'HomeScreen' with your actual home screen class)
+      Navigator.pushNamed(context, '/homepage');
+    } catch (e) {
+      // Handle login failure, e.g., display an error message
+      print("Error during login: $e");
+    }
