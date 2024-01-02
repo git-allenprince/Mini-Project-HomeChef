@@ -34,7 +34,7 @@ class SplashScreen extends StatelessWidget {
                         backgroundColor:
                             MaterialStatePropertyAll(Colors.deepPurple)),
                     onPressed: () {
-                      Navigator.pushNamed(context, '/');
+                      Navigator.pushNamed(context, '/login');
                     },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,

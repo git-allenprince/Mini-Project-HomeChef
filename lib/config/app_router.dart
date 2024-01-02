@@ -1,6 +1,9 @@
 // ignore_for_file: unreachable_switch_case, unnecessary_import
 
 import 'package:flutter/material.dart';
+import 'package:homechef_v3/screens/Login/customerlogin.dart';
+import 'package:homechef_v3/screens/Login/homemakerlogin.dart';
+import 'package:homechef_v3/screens/Login/loginpagecombined.dart';
 import 'package:homechef_v3/screens/checkout/checkout_screen.dart';
 import 'package:homechef_v3/screens/delivery_time/delivery_time_screen.dart';
 import 'package:homechef_v3/screens/edit_plate/edit_plate_screen.dart';
@@ -10,6 +13,8 @@ import 'package:homechef_v3/screens/homemaker_details/homemaker_details_screen.d
 import 'package:homechef_v3/screens/homemaker_list/homemaker_list_screen.dart';
 import 'package:homechef_v3/screens/location/location.dart';
 import 'package:homechef_v3/screens/plate/plate_screen.dart';
+import 'package:homechef_v3/screens/register/customer_register.dart';
+import 'package:homechef_v3/screens/register/homemaker_register.dart';
 import 'package:homechef_v3/screens/screens.dart';
 import 'package:homechef_v3/screens/splash/splash.dart';
 
@@ -22,6 +27,16 @@ class AppRouter {
         return HomeScreen.route();
       case SplashScreen.routeName:
         return SplashScreen.route();
+      case LoginScreen.routeName:
+        return LoginScreen.route();
+      case CustomerLoginScreen.routeName:
+        return CustomerLoginScreen.route();
+      case CustomerRegisterScreen.routeName:
+        return CustomerRegisterScreen.route();
+      case HomemakerRegisterScreen.routeName:
+        return HomemakerRegisterScreen.route();
+      case HomemakerLoginScreen.routeName:
+        return HomemakerLoginScreen.route();
       case CheckoutScreen.routeName:
         return CheckoutScreen.route();
       case DeliveryTimeScreen.routeName:
