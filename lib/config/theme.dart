@@ -1,16 +1,52 @@
-import 'package:homechef_v3/screens/screens.dart';
+import 'package:flutter/material.dart';
 
-ThemeData theme() {
+ThemeData themes() {
   return ThemeData(
-      primaryColor: Color(0xFF673AB7),
-      primaryColorDark: Color(0x4F1AAC),
-      primaryColorLight: Color(0xA384DD),
-      scaffoldBackgroundColor: Colors.white,
-      backgroundColor: Colors.grey[400],
-      fontFamily: 'Futura',
-      textTheme: TextTheme(
-          headlineLarge: TextStyle(
-        color: Colors.red,
-        fontWeight: FontWeight.normal,
-      )));
+    //primarySwatch: Colors.deepPurple,
+    primaryColor: Colors.deepPurple,
+    primaryColorDark: const Color(0xFF300251),
+    primaryColorLight: const Color(0xFF7B2AB5),
+    scaffoldBackgroundColor: Colors.white,
+    backgroundColor: Color(0xFFF5F5F5),
+
+    fontFamily: 'Cabin',
+    textTheme: TextTheme(
+      displayLarge: TextStyle(
+          color: Color(0xFF1B070B),
+          fontWeight: FontWeight.bold,
+          fontSize: 36
+      ),
+      displayMedium: TextStyle(
+          color: Color(0xFF1B070B),
+          fontWeight: FontWeight.bold,
+          fontSize: 24
+      ),
+      displaySmall: TextStyle(
+          color: Color(0xFF1B070B),
+          fontWeight: FontWeight.bold,
+          fontSize: 18
+      ),
+      headlineMedium: TextStyle(
+          color: Color(0xFF1B070B),
+          fontWeight: FontWeight.bold,
+          fontSize: 16
+      ),
+      headlineSmall: TextStyle(
+          color: Color(0xFF1B070B),
+          fontWeight: FontWeight.bold,
+          fontSize: 14
+      ),
+      bodyLarge: TextStyle(
+          color: Color(0xFF1B070B),
+          fontWeight: FontWeight.normal,
+          fontSize: 13
+      ),
+      bodyMedium: TextStyle(
+          color: Color(0xFF1B070B),
+          fontWeight: FontWeight.normal,
+          fontSize: 12
+      ),
+    ),
+  );
 }
+

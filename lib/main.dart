@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:homechef_v3/config/app_router.dart';
+import 'package:homechef_v3/config/theme.dart';
+import 'package:homechef_v3/screens/home/home_screen.dart';
+import 'package:homechef_v3/screens/homemaker_details/homemaker_details_screen.dart';
+import 'package:homechef_v3/screens/homemaker_listing/homemaker_listing_screen.dart';
 import 'package:homechef_v3/screens/splash/splash.dart';
 
 void main() {
@@ -13,9 +17,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'HomeChef',
+      theme: themes(),
       onGenerateRoute: AppRouter.onGenerateRoute,
-      initialRoute: SplashScreen.routeName,
+      initialRoute: HomeScreen.routeName ,
     );
   }
 }
