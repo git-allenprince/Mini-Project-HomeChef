@@ -26,6 +26,26 @@ class Category extends Equatable{
         name:'Puttu',
         image: Image.asset('assets/puttu.png')
     ),
+    Category(
+        id:4,
+        name:'Parotta',
+        image: Image.asset('assets/parotta.png')
+    ),
+    Category(
+        id:5,
+        name:'Poori',
+        image: Image.asset('assets/poori.png')
+    ),
+    Category(
+        id:6,
+        name:'Pothichoru',
+        image: Image.asset('assets/pothichoru.png')
+    ),
+    Category(
+        id:7,
+        name:'Sandwich',
+        image: Image.asset('assets/sandwich.png')
+    ),
   ];
 
 }
