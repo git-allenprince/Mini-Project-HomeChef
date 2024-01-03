@@ -5,7 +5,8 @@ import '../../widgets/homemaker_information.dart';
 import 'package:flutter/widgets.dart';
 
 class HomemakerDetailsScreen extends StatelessWidget {
-  const HomemakerDetailsScreen({Key? key,required this.homemaker}) : super(key: key);
+  const HomemakerDetailsScreen({Key? key, required this.homemaker})
+      : super(key: key);
   static const String routeName = '/homemaker-details';
 
   static Route route({required Homemaker homemaker}) {
@@ -13,6 +14,7 @@ class HomemakerDetailsScreen extends StatelessWidget {
         builder: (_) => HomemakerDetailsScreen(homemaker: homemaker),
         settings: RouteSettings(name: routeName));
   }
+
   final Homemaker homemaker;
 
   @override
@@ -22,7 +24,7 @@ class HomemakerDetailsScreen extends StatelessWidget {
         //   backgroundColor: Colors.transparent,
         //   elevation: 0,
         // ),
-      backgroundColor: Theme.of(context).backgroundColor,
+        backgroundColor: Theme.of(context).backgroundColor,
         bottomNavigationBar: BottomAppBar(
           child: Container(
             child: Row(
@@ -33,7 +35,9 @@ class HomemakerDetailsScreen extends StatelessWidget {
                         primary: Theme.of(context).primaryColor,
                         shape: RoundedRectangleBorder(),
                         padding: const EdgeInsets.symmetric(horizontal: 50)),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/basket');
+                    },
                     child: Text('Basket',
                         style: Theme.of(context)
                             .textTheme
@@ -60,7 +64,7 @@ class HomemakerDetailsScreen extends StatelessWidget {
               ),
               HomemakerInformation(homemaker: homemaker),
               ListView.builder(
-                padding: EdgeInsets.zero,
+                  padding: EdgeInsets.zero,
                   shrinkWrap: true,
                   physics: NeverScrollableScrollPhysics(),
                   itemCount: homemaker.tags.length,
@@ -96,28 +100,35 @@ Widget _buildMenuItems(Homemaker homemaker, BuildContext context, int index) {
                       color: Colors.white,
                       padding: const EdgeInsets.symmetric(horizontal: 20),
                       child: ListTile(
-                        dense:true,
+                        dense: true,
                         contentPadding: EdgeInsets.zero,
-                        title: Text(menuItems.name,style:Theme.of(context)
-                            .textTheme
-                            .headline3),
-                        subtitle: Text(menuItems.description,style:Theme.of(context)
-                            .textTheme
-                            .bodyLarge ,),
+                        title: Text(menuItems.name,
+                            style: Theme.of(context).textTheme.headline3),
+                        subtitle: Text(
+                          menuItems.description,
+                          style: Theme.of(context).textTheme.bodyLarge,
+                        ),
                         trailing: Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            Text('\₹${menuItems.price}',style: Theme.of(context)
-                                .textTheme
-                                .bodyLarge ,),
+                            Text(
+                              '\₹${menuItems.price}',
+                              style: Theme.of(context).textTheme.bodyLarge,
+                            ),
                             IconButton(
-                                onPressed: () {}, icon: Icon(Icons.add_circle,color: Theme.of(context).primaryColor,))
+                                onPressed: () {},
+                                icon: Icon(
+                                  Icons.add_circle,
+                                  color: Theme.of(context).primaryColor,
+                                ))
                           ],
                         ),
                       ),
                     ),
-                    Divider(height: 2,)
+                    Divider(
+                      height: 2,
+                    )
                   ],
                 ))
             .toList(),

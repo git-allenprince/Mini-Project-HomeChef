@@ -2,5 +2,5 @@ import '../../models/models.dart';
 
 abstract class BaseVoucherRepository {
   Future<bool> searchVoucher(String code);
-  Stream<List<Voucher>> getVouchers();
+  // Stream<List<Voucher>> getVouchers();
 }

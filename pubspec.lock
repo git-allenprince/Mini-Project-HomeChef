@@ -253,17 +253,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.2"
-<<<<<<< HEAD
-  stream_transform:
-    dependency: transitive
-    description:
-      name: stream_transform
-      sha256: "14a00e794c7c11aa145a170587321aedce29769c08d7f58b1d141da75e3b1c6f"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.1.0"
-=======
->>>>>>> 617bb720e9cf6b063da754a13fc79563e26ff3a3
   string_scanner:
     dependency: transitive
     description:
@@ -322,8 +311,4 @@ packages:
     version: "0.3.0"
 sdks:
   dart: ">=3.2.0-194.0.dev <4.0.0"
-<<<<<<< HEAD
-  flutter: ">=3.13.0"
-=======
   flutter: ">=2.8.0"
->>>>>>> 617bb720e9cf6b063da754a13fc79563e26ff3a3
