@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:homechef_v3/widgets/promo_box.dart';
 
 class FoodSearchBox extends StatelessWidget {
   const FoodSearchBox({
@@ -22,8 +21,8 @@ class FoodSearchBox extends StatelessWidget {
                     Icons.search,
                     color: Theme.of(context).primaryColor,
                   ),
-                  contentPadding: const EdgeInsets.only(
-                      left: 20, bottom: 5, top: 12.5),
+                  contentPadding:
+                      const EdgeInsets.only(left: 20, bottom: 5, top: 12.5),
                   focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
                       borderSide: BorderSide(color: Colors.white)),
@@ -38,11 +37,10 @@ class FoodSearchBox extends StatelessWidget {
           Container(
             width: 50,
             height: 50,
-            decoration: BoxDecoration(color: Colors.white,
-                borderRadius: BorderRadius.circular(5)),
+            decoration: BoxDecoration(
+                color: Colors.white, borderRadius: BorderRadius.circular(5)),
             child: IconButton(
-              icon:
-              Icon(Icons.menu, color: Theme.of(context).primaryColor),
+              icon: Icon(Icons.menu, color: Theme.of(context).primaryColor),
               onPressed: () {},
             ),
           )

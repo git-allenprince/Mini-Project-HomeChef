@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:homechef_v3/models/models.dart';
-import 'package:homechef_v3/widgets/category_box.dart';
 
 import '../models/promo_model.dart';
 
-
 class PromoBox extends StatelessWidget {
   final Promo promo;
-  const PromoBox({Key? key,required this.promo}) : super(key: key);
+  const PromoBox({Key? key, required this.promo}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,8 +17,7 @@ class PromoBox extends StatelessWidget {
             borderRadius: BorderRadius.circular(5.0),
             color: Theme.of(context).primaryColor,
             image: DecorationImage(
-                image: NetworkImage(promo.imageUrl),
-                fit: BoxFit.cover)),
+                image: NetworkImage(promo.imageUrl), fit: BoxFit.cover)),
       ),
       ClipPath(
         clipper: PromoCustomClipper(),
@@ -32,13 +29,27 @@ class PromoBox extends StatelessWidget {
             color: Theme.of(context).primaryColor,
           ),
           child: Padding(
-            padding: const EdgeInsets.only(top: 10,left: 15,right: 125),
+            padding: const EdgeInsets.only(top: 10, left: 15, right: 125),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(promo.title,style: Theme.of(context).textTheme.headlineMedium!.copyWith(color: Colors.white),),
-                SizedBox(height: 15,),
-                Text(promo.description,style: Theme.of(context).textTheme.bodyLarge!.copyWith(color: Colors.white),)
+                Text(
+                  promo.title,
+                  style: Theme.of(context)
+                      .textTheme
+                      .headlineMedium!
+                      .copyWith(color: Colors.white),
+                ),
+                SizedBox(
+                  height: 15,
+                ),
+                Text(
+                  promo.description,
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyLarge!
+                      .copyWith(color: Colors.white),
+                )
               ],
             ),
           ),
@@ -48,10 +59,10 @@ class PromoBox extends StatelessWidget {
   }
 }
 
-class PromoCustomClipper extends CustomClipper<Path>{
+class PromoCustomClipper extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
-    var path= new Path();
+    var path = new Path();
     path.lineTo(0, 0);
     path.lineTo(0, size.height);
     path.lineTo(225, size.height);
@@ -64,5 +75,4 @@ class PromoCustomClipper extends CustomClipper<Path>{
   bool shouldReclip(covariant CustomClipper<Path> oldClipper) {
     return false;
   }
-
 }
