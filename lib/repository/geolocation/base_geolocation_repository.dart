@@ -1,7 +1,7 @@
-// import 'package:geolocator/geolocator.dart';
-//
-// abstract class BaseGeolocationRepository {
-//   Future<Position?> getCurrentLocation() async {
-//     return null;
-//   }
-// }
+import 'package:geolocator/geolocator.dart';
+
+abstract class BaseGeolocationRepository {
+  Future<Position?> getCurrentLocation() async {
+    return null;
+  }
+}
