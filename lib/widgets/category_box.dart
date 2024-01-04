@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:homechef_v3/models/models.dart';
+import 'package:homechef_v3/models/category_model.dart';
+import 'package:homechef_v3/models/homemaker_model.dart';
+import 'package:homechef_v3/screens/homemaker_listing/homemaker_listing_screen.dart';
+
 
 class CategoryBox extends StatelessWidget {
   final Category category;
@@ -8,23 +11,24 @@ class CategoryBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<Homemaker> homemakers = Homemaker.homemakers
-        .where(
-          (homemaker) => homemaker.menuItems.contains(category.name),
-        )
-        .toList();
     return InkWell(
       onTap: () {
+        List<Homemaker> filteredHomemakers = Homemaker.homemakers
+            .where((homemaker) =>
+            homemaker.menuItems.any((menuItem) =>
+            menuItem.name.toLowerCase() ==
+                category.name.toLowerCase()))
+            .toList();
         Navigator.pushNamed(
           context,
-          '/homemaker-listing', arguments: homemakers
+          HomemakerListingScreen.routeName,
+          arguments: filteredHomemakers,
         );
       },
       child: Container(
         width: 100,
         margin: const EdgeInsets.only(right: 10.0),
         decoration: BoxDecoration(
-          //color: Colors.deepPurple,
           borderRadius: BorderRadius.circular(5.0),
           border: Border.all(color: Colors.deepPurple, width: 2),
         ),
@@ -47,11 +51,8 @@ class CategoryBox extends StatelessWidget {
               child: Align(
                 alignment: Alignment.bottomCenter,
                 child: Text(
-                  category.name,
-                  style: Theme.of(context)
-                      .textTheme
-                      .headlineSmall!
-                      .copyWith(color: Colors.black),
+                  category.name, style: TextStyle(fontWeight:FontWeight.bold),
+                  // Modify text styling as needed
                 ),
               ),
             )

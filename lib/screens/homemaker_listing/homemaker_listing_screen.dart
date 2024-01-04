@@ -19,7 +19,7 @@ class HomemakerListingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('RestaurantListing')),
+      appBar: AppBar(title: Text('Homemaker Listing')),
       body: ListView.builder(
         itemCount: homemakers.length,
         itemBuilder: (context, index) {

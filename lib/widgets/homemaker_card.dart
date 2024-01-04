@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:homechef_v3/models/models.dart';
 import 'widgets.dart';
-import 'package:homechef_v3/widgets/category_box.dart';
-import 'package:homechef_v3/widgets/food_search_box.dart';
-import 'package:homechef_v3/widgets/promo_box.dart';
-
 
 class HomemakerCard extends StatelessWidget {
   final Homemaker homemaker;
@@ -13,9 +9,11 @@ class HomemakerCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(onTap: (){
-      Navigator.pushNamed(context, '/homemaker-details',arguments: homemaker);
-    },
+    return InkWell(
+      onTap: () {
+        Navigator.pushNamed(context, '/homemaker-details',
+            arguments: homemaker);
+      },
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
@@ -38,8 +36,8 @@ class HomemakerCard extends StatelessWidget {
                   width: 60,
                   height: 30,
                   decoration: BoxDecoration(
-                      color: Colors.white, borderRadius: BorderRadius.circular(5)),
-
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(5)),
                   child: Align(
                     alignment: Alignment.center,
                     child: Text(
@@ -55,11 +53,20 @@ class HomemakerCard extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(homemaker.name,style: Theme.of(context).textTheme.headline5,),
-                  SizedBox(height: 5,),
+                  Text(
+                    homemaker.name,
+                    style: Theme.of(context).textTheme.headline5,
+                  ),
+                  SizedBox(
+                    height: 5,
+                  ),
                   HomemakerTags(homemaker: homemaker),
-                  SizedBox(height: 5,),
-                  Text('${homemaker.distance}km - \₹${homemaker.deliveryFee} delivery fee',style: Theme.of(context).textTheme.bodyText1)
+                  SizedBox(
+                    height: 5,
+                  ),
+                  Text(
+                      '${homemaker.distance}km - \₹${homemaker.deliveryFee} delivery fee',
+                      style: Theme.of(context).textTheme.bodyText1)
                 ],
               ),
             )
@@ -69,4 +76,3 @@ class HomemakerCard extends StatelessWidget {
     );
   }
 }
-
