@@ -16,12 +16,12 @@ class HomemakerLoginScreen extends StatefulWidget {
 }
 
 class _HomemakerLoginScreenState extends State<HomemakerLoginScreen> {
-  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
   Future<void> _login() async {
-    if (_emailController.text == '1' && _passwordController.text == '2') {
-      print("User logged in: ${_emailController.text}");
+    if (_usernameController.text == '1' && _passwordController.text == '2') {
+      print("User logged in: ${_usernameController.text}");
       Navigator.pushNamed(context, '/');
     } else {
       print("Invalid credentials");
@@ -59,9 +59,9 @@ class _HomemakerLoginScreenState extends State<HomemakerLoginScreen> {
                 ),
                 TextField(
                   style: TextStyle(color: Colors.white),
-                  controller: _emailController,
+                  controller: _usernameController,
                   decoration: InputDecoration(
-                    labelText: 'Email',
+                    labelText: 'Username',
                     prefixIcon: Icon(Icons.email,
                         color: Colors.white), // set icon color
                     focusColor: Colors.deepPurple,
@@ -85,8 +85,8 @@ class _HomemakerLoginScreenState extends State<HomemakerLoginScreen> {
                   controller: _passwordController,
                   decoration: InputDecoration(
                     labelText: 'Password',
-                    prefixIcon: Icon(Icons.email,
-                        color: Colors.white), // set icon color
+                    prefixIcon:
+                        Icon(Icons.lock, color: Colors.white), // set icon color
                     focusColor: Colors.deepPurple,
                     labelStyle:
                         TextStyle(color: Colors.white), // set label color

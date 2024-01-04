@@ -25,14 +25,14 @@ class Homemaker extends Equatable {
       required this.distance});
 
   @override
-  // TODO: implement props
   List<Object?> get props =>
       [id, imageUrl, name, tags, deliveryFee, deliveryTime, distance];
 
   static List<Homemaker> homemakers = [
     Homemaker(
         id: 1,
-        imageUrl: 'https://source.unsplash.com/5oF7d_hPJG4',
+        imageUrl:
+            'https://unsplash.com/photos/cooked-dish-on-gray-bowl--YHSwy6uqvk',
         name: 'Homemaker A',
         tags: MenuItem.menuItems
             .where((menuItems) => menuItems.homemakerId == 1)

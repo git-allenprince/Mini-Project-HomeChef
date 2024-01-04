@@ -1,18 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:homechef_v3/blocs/basket/basket_bloc.dart';
+import 'package:homechef_v3/blocs/subscription/subscription_bloc.dart';
 import 'package:homechef_v3/models/homemaker_model.dart';
 
-import '../../widgets/homemaker_information.dart';
-
-class HomemakerDetailsScreen extends StatelessWidget {
-  const HomemakerDetailsScreen({Key? key, required this.homemaker})
+class SubscribeHomemakerScreen extends StatelessWidget {
+  const SubscribeHomemakerScreen({Key? key, required this.homemaker})
       : super(key: key);
-  static const String routeName = '/homemaker-details';
+  static const String routeName = '/subhomedetails';
 
   static Route route({required Homemaker homemaker}) {
     return MaterialPageRoute(
-        builder: (_) => HomemakerDetailsScreen(homemaker: homemaker),
+        builder: (_) => SubscribeHomemakerScreen(homemaker: homemaker),
         settings: RouteSettings(name: routeName));
   }
 
@@ -37,9 +35,9 @@ class HomemakerDetailsScreen extends StatelessWidget {
                         shape: RoundedRectangleBorder(),
                         padding: const EdgeInsets.symmetric(horizontal: 50)),
                     onPressed: () {
-                      Navigator.pushNamed(context, '/basket');
+                      Navigator.pushNamed(context, '/subscribecart');
                     },
-                    child: Text('Basket',
+                    child: Text('Your Subscriptions',
                         style: Theme.of(context)
                             .textTheme
                             .headlineSmall!
@@ -53,31 +51,6 @@ class HomemakerDetailsScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                height: 200,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.vertical(
-                        bottom: Radius.elliptical(
-                            MediaQuery.of(context).size.width, 50)),
-                    image: DecorationImage(
-                        fit: BoxFit.cover,
-                        image: NetworkImage(homemaker.imageUrl))),
-              ),
-              HomemakerInformation(homemaker: homemaker),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: ElevatedButton(
-                        onPressed: () {
-                          Navigator.pushNamed(context, '/subscription',
-                              arguments: homemaker);
-                        },
-                        child: Text('Subscribe')),
-                  ),
-                ],
-              ),
               ListView.builder(
                   padding: EdgeInsets.zero,
                   shrinkWrap: true,
@@ -131,12 +104,12 @@ Widget _buildMenuItems(Homemaker homemaker, BuildContext context, int index) {
                               '\₹${menuItems.price}',
                               style: Theme.of(context).textTheme.bodyLarge,
                             ),
-                            BlocBuilder<BasketBloc, BasketState>(
+                            BlocBuilder<SubscriptionBloc, SubscriptionState>(
                               builder: (context, state) {
                                 return IconButton(
                                     onPressed: () {
-                                      context.read<BasketBloc>()
-                                        ..add(AddItem(menuItems));
+                                      context.read<SubscriptionBloc>()
+                                        ..add(AddSubItem(menuItems));
                                     },
                                     icon: Icon(
                                       Icons.add_circle,
