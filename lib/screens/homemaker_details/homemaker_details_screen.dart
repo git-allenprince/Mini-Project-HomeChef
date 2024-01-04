@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:homechef_v3/blocs/basket/basket_bloc.dart';
 import 'package:homechef_v3/models/homemaker_model.dart';
 
 import '../../widgets/homemaker_information.dart';
+import 'package:flutter/widgets.dart';
 
 class HomemakerDetailsScreen extends StatelessWidget {
   const HomemakerDetailsScreen({Key? key, required this.homemaker})
@@ -33,7 +32,7 @@ class HomemakerDetailsScreen extends StatelessWidget {
               children: [
                 ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                        backgroundColor: Theme.of(context).primaryColor,
+                        primary: Theme.of(context).primaryColor,
                         shape: RoundedRectangleBorder(),
                         padding: const EdgeInsets.symmetric(horizontal: 50)),
                     onPressed: () {
@@ -64,20 +63,6 @@ class HomemakerDetailsScreen extends StatelessWidget {
                         image: NetworkImage(homemaker.imageUrl))),
               ),
               HomemakerInformation(homemaker: homemaker),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: ElevatedButton(
-                        onPressed: () {
-                          Navigator.pushNamed(context, '/subscription',
-                              arguments: homemaker);
-                        },
-                        child: Text('Subscribe')),
-                  ),
-                ],
-              ),
               ListView.builder(
                   padding: EdgeInsets.zero,
                   shrinkWrap: true,
@@ -85,7 +70,7 @@ class HomemakerDetailsScreen extends StatelessWidget {
                   itemCount: homemaker.tags.length,
                   itemBuilder: (context, index) {
                     return _buildMenuItems(homemaker, context, index);
-                  }),
+                  })
             ],
           ),
         ));
@@ -102,7 +87,7 @@ Widget _buildMenuItems(Homemaker homemaker, BuildContext context, int index) {
           homemaker.tags[index],
           style: Theme.of(context)
               .textTheme
-              .displayMedium!
+              .headline2!
               .copyWith(color: Theme.of(context).primaryColor),
         ),
       ),
@@ -118,7 +103,7 @@ Widget _buildMenuItems(Homemaker homemaker, BuildContext context, int index) {
                         dense: true,
                         contentPadding: EdgeInsets.zero,
                         title: Text(menuItems.name,
-                            style: Theme.of(context).textTheme.displaySmall),
+                            style: Theme.of(context).textTheme.headline3),
                         subtitle: Text(
                           menuItems.description,
                           style: Theme.of(context).textTheme.bodyLarge,
@@ -131,19 +116,12 @@ Widget _buildMenuItems(Homemaker homemaker, BuildContext context, int index) {
                               '\₹${menuItems.price}',
                               style: Theme.of(context).textTheme.bodyLarge,
                             ),
-                            BlocBuilder<BasketBloc, BasketState>(
-                              builder: (context, state) {
-                                return IconButton(
-                                    onPressed: () {
-                                      context.read<BasketBloc>()
-                                        ..add(AddItem(menuItems));
-                                    },
-                                    icon: Icon(
-                                      Icons.add_circle,
-                                      color: Theme.of(context).primaryColor,
-                                    ));
-                              },
-                            )
+                            IconButton(
+                                onPressed: () {},
+                                icon: Icon(
+                                  Icons.add_circle,
+                                  color: Theme.of(context).primaryColor,
+                                ))
                           ],
                         ),
                       ),

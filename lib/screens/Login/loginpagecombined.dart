@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:homechef_v3/screens/login/adminlogin.dart';
-import 'package:homechef_v3/screens/login/customerlogin.dart';
-import 'package:homechef_v3/screens/login/homemakerlogin.dart';
+import 'package:homechef_v3/screens/Login/adminlogin.dart';
+import 'package:homechef_v3/screens/Login/customerlogin.dart';
+import 'package:homechef_v3/screens/Login/homemakerlogin.dart';
 
 class LoginScreen extends StatelessWidget {
   static const String routeName = '/login';
@@ -21,7 +21,7 @@ class LoginScreen extends StatelessWidget {
         child: Column(
           children: [
             SizedBox(
-              height: 10,
+              height: 40,
             ),
             SizedBox(
               height: kToolbarHeight, // Set the height for tab bar

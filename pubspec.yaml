@@ -17,11 +17,10 @@ dependencies:
 
 #  google_maps_flutter: ^2.5.0
   geolocator: ^10.1.0
-  bloc: 7.2.1
+  bloc: ^8.1.2
   equatable: ^2.0.0
   firebase_auth: ^4.15.3
   firebase_core: ^2.24.2
-  flutter_bloc: ^7.0.0
 
 dev_dependencies:
   flutter_test:
