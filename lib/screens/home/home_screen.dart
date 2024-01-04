@@ -1,9 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:homechef_v3/models/models.dart';
-import 'package:homechef_v3/widgets/category_box.dart';
-import 'package:homechef_v3/widgets/food_search_box.dart';
-import 'package:homechef_v3/widgets/promo_box.dart';
 
 import '../../widgets/widgets.dart';
 
@@ -56,7 +53,7 @@ class HomeScreen extends StatelessWidget {
                     shrinkWrap: true,
                     itemCount: Promo.promos.length,
                     itemBuilder: (context, index) {
-                      return PromoBox(promo:Promo.promos[index]);
+                      return PromoBox(promo: Promo.promos[index]);
                     }),
               ),
             ),
@@ -67,7 +64,7 @@ class HomeScreen extends StatelessWidget {
                 alignment: Alignment.topLeft,
                 child: Text(
                   'Top Rated',
-                  style: Theme.of(context).textTheme.headline3,
+                  style: Theme.of(context).textTheme.displaySmall,
                 ),
               ),
             ),
@@ -83,8 +80,6 @@ class HomeScreen extends StatelessWidget {
     );
   }
 }
-
-
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   const CustomAppBar({
@@ -141,6 +136,5 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   }
 
   @override
-  // TODO: implement preferredSize
   Size get preferredSize => Size.fromHeight(56.0);
 }

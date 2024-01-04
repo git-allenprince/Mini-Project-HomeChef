@@ -1,19 +1,21 @@
-// part of 'basket_bloc.dart';
 
-// abstract class BasketState extends Equatable {
-//   const BasketState();
-// }
+part of 'basket_bloc.dart';
 
-// class BasketLoading extends BasketState {
-//   @override
-//   List<Object> get props => [];
-// }
+abstract class BasketState extends Equatable {
+  const BasketState();
+}
 
-// class BasketLoaded extends BasketState {
-//   final Basket basket;
+class BasketLoading extends BasketState {
+  @override
+  List<Object> get props => [];
+}
 
-//   BasketLoaded({required this.basket});
+class BasketLoaded extends BasketState {
+  final Basket basket;
 
-//   @override
-//   List<Object> get props => [basket];
-// }
+  BasketLoaded({required this.basket});
+
+  @override
+  List<Object> get props => [basket];
+}
+

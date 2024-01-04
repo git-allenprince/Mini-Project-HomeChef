@@ -20,6 +20,7 @@ class HomemakerLoginScreen extends StatefulWidget {
 }
 
 class _HomemakerLoginScreenState extends State<HomemakerLoginScreen> {
+
   //text controllers
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
@@ -35,6 +36,7 @@ class _HomemakerLoginScreenState extends State<HomemakerLoginScreen> {
     _emailController.dispose();
     _passwordController.dispose();
     super.dispose();
+
   }
 
   @override
@@ -69,6 +71,7 @@ class _HomemakerLoginScreenState extends State<HomemakerLoginScreen> {
                 SizedBox(
                   height: 50,
                 ),
+
                 //email textfield
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 25.0),
@@ -85,11 +88,13 @@ class _HomemakerLoginScreenState extends State<HomemakerLoginScreen> {
                         hintText: 'Email',
                         fillColor: Colors.grey[200],
                         filled: true),
+
                   ),
                 ),
                 SizedBox(
                   height: 10,
                 ),
+
 
                 //password textfield
                 Padding(
@@ -108,6 +113,7 @@ class _HomemakerLoginScreenState extends State<HomemakerLoginScreen> {
                         hintText: 'Password',
                         fillColor: Colors.grey[200],
                         filled: true),
+
                   ),
                 ),
                 SizedBox(

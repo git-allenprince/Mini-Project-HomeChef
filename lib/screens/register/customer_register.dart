@@ -287,11 +287,13 @@ class _CustomerRegisterScreenState extends State<CustomerRegisterScreen> {
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                     GestureDetector(
+
                       onTap: widget.showCustomerLoginScreen,
                       child: Text(
                         ' Login now',
                         style: TextStyle(
                             color: Colors.blue, fontWeight: FontWeight.bold),
+
                       ),
                     )
                   ],

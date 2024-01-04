@@ -1,35 +1,54 @@
-// part of 'basket_bloc.dart';
 
-// abstract class BasketEvent extends Equatable {
-//   const BasketEvent();
-// }
+part of 'basket_bloc.dart';
 
-// class StartBasket extends BasketEvent {
-//   @override
-//   List<Object> get props => [];
-// }
+abstract class BasketEvent extends Equatable {
+  const BasketEvent();
+}
 
-// class AddItem extends BasketEvent {
-//   final MenuItem item;
+class StartBasket extends BasketEvent {
+  @override
+  List<Object> get props => [];
+}
 
-//   const AddItem(this.item);
+class AddItem extends BasketEvent {
+  final MenuItem item;
 
-//   @override
-//   List<Object> get props => [item];
-// }
+  const AddItem(this.item);
 
-// class RemoveItem extends BasketEvent {
-//   final MenuItem item;
+  @override
+  List<Object> get props => [item];
+}
 
-//   const RemoveItem(this.item);
+class RemoveItem extends BasketEvent {
+  final MenuItem item;
 
-//   @override
-//   List<Object> get props => [item];
-// }
+  const RemoveItem(this.item);
 
-// class ToggleSwitch extends BasketEvent {
-//   const ToggleSwitch();
+  @override
+  List<Object> get props => [item];
+}
 
-//   @override
-//   List<Object> get props => [];
-// }
+class RemoveAllItem extends BasketEvent {
+  final MenuItem item;
+
+  const RemoveAllItem(this.item);
+
+  @override
+  List<Object> get props => [item];
+}
+
+class ToggleSwitch extends BasketEvent {
+  const ToggleSwitch();
+
+  @override
+  List<Object> get props => [];
+}
+
+class SelectDeliveryTime extends BasketEvent {
+  final DeliveryTime deliveryTime;
+  const SelectDeliveryTime(this.deliveryTime);
+
+  @override
+  List<Object?> get props => [deliveryTime];
+}
+

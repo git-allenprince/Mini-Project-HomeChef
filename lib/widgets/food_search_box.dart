@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+
 import 'package:homechef_v3/models/models.dart';
+
 
 class FoodSearchBox extends StatefulWidget {
   const FoodSearchBox({Key? key}) : super(key: key);
@@ -31,6 +33,7 @@ class _FoodSearchBoxState extends State<FoodSearchBox> {
             child: TextFormField(
               onChanged: filterItems,
               decoration: InputDecoration(
+// <<<<<<< allen_new_final
                 filled: true,
                 fillColor: Colors.white,
                 hintText: 'What would you like to eat?',
@@ -48,11 +51,29 @@ class _FoodSearchBoxState extends State<FoodSearchBox> {
                   borderRadius: BorderRadius.circular(10),
                 ),
               ),
+// =======
+//                   filled: true,
+//                   fillColor: Colors.white,
+//                   hintText: 'What would you like to eat?',
+//                   suffixIcon: Icon(
+//                     Icons.search,
+//                     color: Theme.of(context).primaryColor,
+//                   ),
+//                   contentPadding:
+//                       const EdgeInsets.only(left: 20, bottom: 5, top: 12.5),
+//                   focusedBorder: OutlineInputBorder(
+//                       borderRadius: BorderRadius.circular(10),
+//                       borderSide: BorderSide(color: Colors.white)),
+//                   enabledBorder: UnderlineInputBorder(
+//                       borderSide: BorderSide(color: Colors.white),
+//                       borderRadius: BorderRadius.circular(10))),
+// >>>>>>> master
             ),
           ),
           SizedBox(
             width: 10,
           ),
+// <<<<<<< allen_new_final
           Container(
             width: 50,
             height: 50,
@@ -65,6 +86,18 @@ class _FoodSearchBoxState extends State<FoodSearchBox> {
               onPressed: () {},
             ),
           )
+// =======
+          // Container(
+          //   width: 50,
+          //   height: 50,
+          //   decoration: BoxDecoration(
+          //       color: Colors.white, borderRadius: BorderRadius.circular(5)),
+          //   child: IconButton(
+          //     icon: Icon(Icons.menu, color: Theme.of(context).primaryColor),
+          //     onPressed: () {},
+          //   ),
+          // )
+// >>>>>>> master
         ],
       ),
     );

@@ -66,6 +66,7 @@ class _CustomerLoginScreenState extends State<CustomerLoginScreen> {
                 SizedBox(
                   height: 50,
                 ),
+
                 //email textfield
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 25.0),
@@ -87,6 +88,7 @@ class _CustomerLoginScreenState extends State<CustomerLoginScreen> {
                 SizedBox(
                   height: 10,
                 ),
+
 
                 //password textfield
                 Padding(

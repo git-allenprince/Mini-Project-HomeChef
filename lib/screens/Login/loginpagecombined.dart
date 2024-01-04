@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:homechef_v3/screens/Login/adminlogin.dart';
-import 'package:homechef_v3/screens/Login/customerlogin.dart';
-import 'package:homechef_v3/screens/Login/homemakerlogin.dart';
+import 'package:homechef_v3/screens/login/adminlogin.dart';
+import 'package:homechef_v3/screens/login/customerlogin.dart';
+import 'package:homechef_v3/screens/login/homemakerlogin.dart';
 
 class LoginScreen extends StatelessWidget {
   static const String routeName = '/login';
@@ -14,6 +14,7 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+l
       backgroundColor: Colors.deepPurple,
       body: SafeArea(
         child: DefaultTabController(
@@ -44,6 +45,7 @@ class LoginScreen extends StatelessWidget {
                       Tab(text: 'Homemaker'),
                     ],
                   ),
+
                 ),
               ),
               Expanded(
