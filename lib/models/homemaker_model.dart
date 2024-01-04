@@ -25,7 +25,6 @@ class Homemaker extends Equatable {
       required this.distance});
 
   @override
-  // TODO: implement props
   List<Object?> get props =>
       [id, imageUrl, name, tags, deliveryFee, deliveryTime, distance];
 

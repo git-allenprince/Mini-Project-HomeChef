@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:homechef_v3/blocs/basket/basket_bloc.dart';
 import 'package:homechef_v3/models/homemaker_model.dart';
 
 import '../../widgets/homemaker_information.dart';
-import 'package:flutter/widgets.dart';
 
 class HomemakerDetailsScreen extends StatelessWidget {
   const HomemakerDetailsScreen({Key? key, required this.homemaker})
@@ -32,7 +33,7 @@ class HomemakerDetailsScreen extends StatelessWidget {
               children: [
                 ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                        primary: Theme.of(context).primaryColor,
+                        backgroundColor: Theme.of(context).primaryColor,
                         shape: RoundedRectangleBorder(),
                         padding: const EdgeInsets.symmetric(horizontal: 50)),
                     onPressed: () {
@@ -87,7 +88,7 @@ Widget _buildMenuItems(Homemaker homemaker, BuildContext context, int index) {
           homemaker.tags[index],
           style: Theme.of(context)
               .textTheme
-              .headline2!
+              .displayMedium!
               .copyWith(color: Theme.of(context).primaryColor),
         ),
       ),
@@ -103,7 +104,7 @@ Widget _buildMenuItems(Homemaker homemaker, BuildContext context, int index) {
                         dense: true,
                         contentPadding: EdgeInsets.zero,
                         title: Text(menuItems.name,
-                            style: Theme.of(context).textTheme.headline3),
+                            style: Theme.of(context).textTheme.displaySmall),
                         subtitle: Text(
                           menuItems.description,
                           style: Theme.of(context).textTheme.bodyLarge,
@@ -116,12 +117,19 @@ Widget _buildMenuItems(Homemaker homemaker, BuildContext context, int index) {
                               '\₹${menuItems.price}',
                               style: Theme.of(context).textTheme.bodyLarge,
                             ),
-                            IconButton(
-                                onPressed: () {},
-                                icon: Icon(
-                                  Icons.add_circle,
-                                  color: Theme.of(context).primaryColor,
-                                ))
+                            BlocBuilder<BasketBloc, BasketState>(
+                              builder: (context, state) {
+                                return IconButton(
+                                    onPressed: () {
+                                      context.read<BasketBloc>()
+                                        ..add(AddItem(menuItems));
+                                    },
+                                    icon: Icon(
+                                      Icons.add_circle,
+                                      color: Theme.of(context).primaryColor,
+                                    ));
+                              },
+                            )
                           ],
                         ),
                       ),

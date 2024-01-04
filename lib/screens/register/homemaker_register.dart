@@ -18,7 +18,7 @@ class HomemakerRegisterScreen extends StatefulWidget {
 }
 
 class _HomemakerRegisterScreenState extends State<HomemakerRegisterScreen> {
-  final _formfield = GlobalKey<FormState>();
+  // final _formfield = GlobalKey<FormState>();
   final usernameController = TextEditingController();
   final passwordController = TextEditingController();
   final emailController = TextEditingController();
@@ -127,7 +127,7 @@ class _HomemakerRegisterScreenState extends State<HomemakerRegisterScreen> {
                     GestureDetector(
                       onTap: () {
                         // Navigate back to the login page
-                        Navigator.pushNamed(context, '/homemakerlogin');
+                        Navigator.pushNamed(context, '/login');
                       },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,

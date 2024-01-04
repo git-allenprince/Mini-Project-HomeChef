@@ -34,16 +34,16 @@ class FoodSearchBox extends StatelessWidget {
           SizedBox(
             width: 10,
           ),
-          Container(
-            width: 50,
-            height: 50,
-            decoration: BoxDecoration(
-                color: Colors.white, borderRadius: BorderRadius.circular(5)),
-            child: IconButton(
-              icon: Icon(Icons.menu, color: Theme.of(context).primaryColor),
-              onPressed: () {},
-            ),
-          )
+          // Container(
+          //   width: 50,
+          //   height: 50,
+          //   decoration: BoxDecoration(
+          //       color: Colors.white, borderRadius: BorderRadius.circular(5)),
+          //   child: IconButton(
+          //     icon: Icon(Icons.menu, color: Theme.of(context).primaryColor),
+          //     onPressed: () {},
+          //   ),
+          // )
         ],
       ),
     );

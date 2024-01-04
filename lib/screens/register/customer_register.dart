@@ -123,7 +123,7 @@ class _CustomerRegisterScreenState extends State<CustomerRegisterScreen> {
                     GestureDetector(
                       onTap: () {
                         // Navigate back to the login page
-                        Navigator.pushNamed(context, '/customerlogin');
+                        Navigator.pushNamed(context, '/login');
                       },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,

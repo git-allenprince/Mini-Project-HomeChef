@@ -8,7 +8,6 @@ import 'package:homechef_v3/blocs/Authentication/auth_state.dart';
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthBloc() : super(AuthInitial());
 
-  @override
   Stream<AuthState> mapEventToState(AuthEvent event) async* {
     if (event is LoginButtonPressed) {
       yield AuthLoading();
