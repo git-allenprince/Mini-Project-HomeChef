@@ -19,7 +19,9 @@ class BasketScreen extends StatelessWidget {
         actions: [
           IconButton(
               onPressed: () {
+
                 Navigator.of(context).pushNamed('/editbasket');
+
               },
               icon: Icon(Icons.edit))
         ],
@@ -30,6 +32,7 @@ class BasketScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               ElevatedButton(
+
                   style: ElevatedButton.styleFrom(
                       backgroundColor: Theme.of(context).primaryColor,
                       shape: RoundedRectangleBorder(),

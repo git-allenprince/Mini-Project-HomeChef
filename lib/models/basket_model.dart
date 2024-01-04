@@ -1,10 +1,13 @@
 import 'package:equatable/equatable.dart';
+
 import 'package:homechef_v3/models/delivery_time_model.dart';
+
 import 'package:homechef_v3/models/menu_item_model.dart';
 
 class Basket extends Equatable {
   final List<MenuItem> items;
   final bool cutlery;
+
   final DeliveryTime? deliveryTime;
 
   Basket(
@@ -12,9 +15,11 @@ class Basket extends Equatable {
       this.cutlery = false,
       this.deliveryTime});
 
+
   Basket copyWith({
     List<MenuItem>? items,
     bool? cutlery,
+
     DeliveryTime? deliveryTime,
   }) {
     return Basket(
@@ -25,6 +30,7 @@ class Basket extends Equatable {
 
   @override
   List<Object?> get props => [items, cutlery, deliveryTime];
+
 
   Map itemQuantity(items) {
     var quantity = Map();
@@ -43,7 +49,9 @@ class Basket extends Equatable {
       items.fold(0, (total, current) => total + current.price);
 
   double total(subtotal) {
+
     return subtotal + 50;
+
   }
 
   String get subtotalString => subtotal.toStringAsFixed(2);

@@ -1,10 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:homechef_v3/models/models.dart';
 
 import '../../widgets/widgets.dart';
 
 class HomeScreen extends StatelessWidget {
-  static const String routeName = '/';
+  static const String routeName = '/homescreen';
 
   static Route route() {
     return MaterialPageRoute(
@@ -56,7 +57,7 @@ class HomeScreen extends StatelessWidget {
                     }),
               ),
             ),
-            FoodSearchBox(),
+            // FoodSearchBox(),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Align(
@@ -94,6 +95,22 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         icon: Icon(Icons.person),
         onPressed: () {},
       ),
+      actions: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+          child: MaterialButton(
+            onPressed: () {
+              FirebaseAuth.instance.signOut();
+              // Add additional sign-out logic if needed
+            },
+
+            child: Text(
+              'Sign Out',
+              style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),
+            ),
+          ),
+        ),
+      ],
       centerTitle: false,
       title: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -112,6 +129,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                 .titleLarge
                 ?.copyWith(color: Colors.white),
           ),
+
         ],
       ),
     );

@@ -14,53 +14,53 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // backgroundColor:
-      //     Colors.deepPurple, // Set the background color to deep purple
-      body: DefaultTabController(
-        length: 3,
-        child: Column(
-          children: [
-            SizedBox(
-              height: 10,
-            ),
-            SizedBox(
-              height: kToolbarHeight, // Set the height for tab bar
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(50),
-                  color: Colors.white,
+l
+      backgroundColor: Colors.deepPurple,
+      body: SafeArea(
+        child: DefaultTabController(
+          length: 2,
+          child: Column(
+            children: [
+              SizedBox(
+                height: kToolbarHeight,
+                child: Container(
+                  color: Colors.deepPurple,
+                  child: TabBar(
+                    isScrollable: true,
+                    labelStyle: TextStyle(
+                      fontSize: 18,
+                      fontFamily: 'Cabin',
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold// Set text color to white
+                    ),
+                    labelPadding: EdgeInsets.symmetric(horizontal: 30),
+                    unselectedLabelStyle: TextStyle(
+                      fontSize: 18,
+                      color: Colors.white.withOpacity(0.5),
+                        fontWeight: FontWeight.bold// Set unselected text color to semi-transparent white
+                    ),
+                    indicatorPadding: EdgeInsets.all(0),
+                    tabs: [
+                      Tab(text: 'Customer'),
+                      Tab(text: 'Homemaker'),
+                    ],
+                  ),
+
                 ),
-                // Set tab bar background color
-                child: const TabBar(
-                  indicatorColor: Colors.deepPurple,
-                  // automaticIndicatorColorAdjustment: true,
-                  tabAlignment: TabAlignment.center,
-                  isScrollable: true,
-                  labelStyle: TextStyle(fontSize: 13),
-                  labelColor: Colors.deepPurple,
-                  unselectedLabelColor: Colors.deepPurple,
-                  indicatorPadding:
-                      EdgeInsets.all(0), // Set the text color for selected tab
-                  tabs: [
-                    Tab(text: 'Customer'),
-                    Tab(text: 'Homemaker'),
-                    Tab(text: 'Admin')
+              ),
+              Expanded(
+                child: TabBarView(
+                  children: [
+                    CustomerLoginScreen(showCustomerRegisterScreen: () {  },),
+                    HomemakerLoginScreen(),
                   ],
                 ),
               ),
-            ),
-            Expanded(
-              child: TabBarView(
-                children: [
-                  CustomerLoginScreen(),
-                  HomemakerLoginScreen(),
-                  AdminLoginScreen(),
-                ],
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
   }
 }
+

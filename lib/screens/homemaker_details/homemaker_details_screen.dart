@@ -104,7 +104,11 @@ Widget _buildMenuItems(Homemaker homemaker, BuildContext context, int index) {
                         dense: true,
                         contentPadding: EdgeInsets.zero,
                         title: Text(menuItems.name,
+// <<<<<<< allen_new_final
+//                             style: Theme.of(context).textTheme.headline3),
+// =======
                             style: Theme.of(context).textTheme.displaySmall),
+
                         subtitle: Text(
                           menuItems.description,
                           style: Theme.of(context).textTheme.bodyLarge,
@@ -117,6 +121,14 @@ Widget _buildMenuItems(Homemaker homemaker, BuildContext context, int index) {
                               '\₹${menuItems.price}',
                               style: Theme.of(context).textTheme.bodyLarge,
                             ),
+// <<<<<<< allen_new_final
+//                             IconButton(
+//                                 onPressed: () {},
+//                                 icon: Icon(
+//                                   Icons.add_circle,
+//                                   color: Theme.of(context).primaryColor,
+//                                 ))
+// =======
                             BlocBuilder<BasketBloc, BasketState>(
                               builder: (context, state) {
                                 return IconButton(
@@ -130,6 +142,7 @@ Widget _buildMenuItems(Homemaker homemaker, BuildContext context, int index) {
                                     ));
                               },
                             )
+// >>>>>>> master
                           ],
                         ),
                       ),

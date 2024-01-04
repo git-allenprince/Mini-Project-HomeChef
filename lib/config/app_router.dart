@@ -1,11 +1,22 @@
 // ignore_for_file: unreachable_switch_case, unnecessary_import
 
 import 'package:flutter/material.dart';
+
+import 'package:homechef_v3/firebase_stuff/auth_page.dart';
+import 'package:homechef_v3/firebase_stuff/main_page.dart';
+import 'package:homechef_v3/screens/Login/customerlogin.dart';
+import 'package:homechef_v3/screens/Login/forgot_pw_page.dart';
+import 'package:homechef_v3/screens/Login/homemakerlogin.dart';
+import 'package:homechef_v3/screens/Login/loginpagecombined.dart';
+import 'package:homechef_v3/models/homemaker_model.dart';
+import 'package:homechef_v3/screens/Profile/profileScreen.dart';
+
 import 'package:homechef_v3/screens/login/customerlogin.dart';
 import 'package:homechef_v3/screens/login/homemakerlogin.dart';
 import 'package:homechef_v3/screens/login/loginpagecombined.dart';
 import 'package:homechef_v3/models/homemaker_model.dart';
 import 'package:homechef_v3/screens/basket/basket_screen.dart';
+
 import 'package:homechef_v3/screens/checkout/checkout_screen.dart';
 import 'package:homechef_v3/screens/delivery_time/delivery_time_screen.dart';
 import 'package:homechef_v3/screens/edit_basket/edit_basket_screen.dart';
@@ -24,7 +35,7 @@ class AppRouter {
     print('The route is : ${settings.name}');
 
     switch (settings.name) {
-      case '/':
+      case '/homescreen':
         return HomeScreen.route();
       case SplashScreen.routeName:
         return SplashScreen.route();
@@ -58,8 +69,21 @@ class AppRouter {
             homemakers: settings.arguments as List<Homemaker>);
       case LocationScreen.routeName:
         return LocationScreen.route();
+
+      case PlateScreen.routeName:
+        return PlateScreen.route();
+      case MainPage.routeName:
+        return MainPage.route();
+      case AuthPage.routeName:
+        return AuthPage.route();
+      case ForgotPasswordPage.routeName:
+        return ForgotPasswordPage.route();
+      // case ProfileScreen.routeName:
+      //   return ProfileScreen.route();
+
       case PaymentScreen.routeName:
         return PaymentScreen.route();
+
       default:
         return _errorRoute();
     }

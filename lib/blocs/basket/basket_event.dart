@@ -1,3 +1,4 @@
+
 part of 'basket_bloc.dart';
 
 abstract class BasketEvent extends Equatable {
@@ -50,3 +51,4 @@ class SelectDeliveryTime extends BasketEvent {
   @override
   List<Object?> get props => [deliveryTime];
 }
+

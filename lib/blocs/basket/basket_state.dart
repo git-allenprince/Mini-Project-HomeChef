@@ -1,3 +1,4 @@
+
 part of 'basket_bloc.dart';
 
 abstract class BasketState extends Equatable {
@@ -17,3 +18,4 @@ class BasketLoaded extends BasketState {
   @override
   List<Object> get props => [basket];
 }
+
