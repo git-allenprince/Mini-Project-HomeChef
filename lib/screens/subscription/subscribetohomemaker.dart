@@ -80,7 +80,7 @@ Widget _buildMenuItems(Homemaker homemaker, BuildContext context, int index) {
         ),
       ),
       Column(
-        children: homemaker.menuItems
+        children: homemaker.products
             .where((menuItems) => menuItems.category == homemaker.tags[index])
             .map((menuItems) => Column(
                   children: [

@@ -3,7 +3,6 @@ import 'package:homechef_v3/models/category_model.dart';
 import 'package:homechef_v3/models/homemaker_model.dart';
 import 'package:homechef_v3/screens/homemaker_listing/homemaker_listing_screen.dart';
 
-
 class CategoryBox extends StatelessWidget {
   final Category category;
 
@@ -11,18 +10,15 @@ class CategoryBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final List<Homemaker> homemakers = Homemaker.homemakers
+        .where((homemaker) => homemaker.tags.contains(category.name))
+        .toList();
     return InkWell(
       onTap: () {
-        List<Homemaker> filteredHomemakers = Homemaker.homemakers
-            .where((homemaker) =>
-            homemaker.menuItems.any((menuItem) =>
-            menuItem.name.toLowerCase() ==
-                category.name.toLowerCase()))
-            .toList();
         Navigator.pushNamed(
           context,
           HomemakerListingScreen.routeName,
-          arguments: filteredHomemakers,
+          arguments: homemakers,
         );
       },
       child: Container(
@@ -34,24 +30,24 @@ class CategoryBox extends StatelessWidget {
         ),
         child: Stack(
           children: [
-            Positioned(
-              top: -10,
-              left: 5,
-              child: Container(
-                height: 120,
-                width: 90,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(5.0),
-                ),
-                child: category.image,
-              ),
-            ),
+            // Positioned(
+            //   top: -10,
+            //   left: 5,
+            //   child: Container(
+            //     height: 120,
+            //     width: 90,
+            //     decoration: BoxDecoration(
+            //       borderRadius: BorderRadius.circular(5.0),
+            //     ),
+            //     child: category.image,
+            //   ),
+            // ),
             Padding(
               padding: const EdgeInsets.all(5.0),
               child: Align(
                 alignment: Alignment.bottomCenter,
                 child: Text(
-                  category.name, style: TextStyle(fontWeight:FontWeight.bold),
+                  category.name, style: TextStyle(fontWeight: FontWeight.bold),
                   // Modify text styling as needed
                 ),
               ),

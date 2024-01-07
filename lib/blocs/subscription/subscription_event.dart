@@ -10,16 +10,16 @@ class StartSubscription extends SubscriptionEvent {
 }
 
 class AddSubItem extends SubscriptionEvent {
-  final MenuItem item;
+  final Product product;
 
-  const AddSubItem(this.item);
+  const AddSubItem(this.product);
 
   @override
-  List<Object> get props => [item];
+  List<Object> get props => [product];
 }
 
 class RemoveSubItem extends SubscriptionEvent {
-  final MenuItem item;
+  final Product item;
 
   const RemoveSubItem(this.item);
 

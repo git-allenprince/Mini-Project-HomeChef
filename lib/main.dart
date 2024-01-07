@@ -2,17 +2,16 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:homechef_v3/blocs/basket/basket_bloc.dart';
+import 'package:homechef_v3/blocs/homemaker/homemaker_bloc.dart';
 import 'package:homechef_v3/config/app_router.dart';
 import 'package:homechef_v3/config/theme.dart';
 
 import 'package:homechef_v3/firebase_stuff/main_page.dart';
+import 'package:homechef_v3/repository/homemaker/homemaker_repository.dart';
 import 'package:homechef_v3/screens/Login/homemakerlogin.dart';
 import 'package:homechef_v3/screens/home/home_screen.dart';
 import 'package:homechef_v3/screens/splash/splash.dart';
 import 'firebase_options.dart';
-
-
-
 
 import 'package:homechef_v3/repository/geolocation/geolocation_repository.dart';
 import 'package:homechef_v3/screens/splash/splash.dart';
@@ -43,10 +42,17 @@ class MyApp extends StatelessWidget {
     return MultiRepositoryProvider(
       providers: [
         RepositoryProvider<GeolocationRepository>(
-            create: (_) => GeolocationRepository())
+            create: (_) => GeolocationRepository()),
+        RepositoryProvider<HomemakerRepository>(
+            create: (_) => HomemakerRepository()),
       ],
       child: MultiBlocProvider(
         providers: [
+          BlocProvider(
+            create: (context) => HomemakerBloc(
+              homemakerRepository: context.read<HomemakerRepository>(),
+            ),
+          ),
           BlocProvider(create: (context) => BasketBloc()..add(StartBasket()))
         ],
         child: MaterialApp(

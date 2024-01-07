@@ -99,7 +99,7 @@ class EditBasketScreen extends StatelessWidget {
                     child: CircularProgressIndicator(),
                   );
                 } else if (state is BasketLoaded) {
-                  return state.basket.items.length == 0
+                  return state.basket.products.length == 0
                       ? Container(
                           width: double.infinity,
                           margin: EdgeInsets.only(top: 5),
@@ -113,7 +113,7 @@ class EditBasketScreen extends StatelessWidget {
                       : ListView.builder(
                           shrinkWrap: true,
                           itemCount: state.basket
-                              .itemQuantity(state.basket.items)
+                              .itemQuantity(state.basket.products)
                               .keys
                               .length,
                           itemBuilder: (context, index) {
@@ -128,19 +128,20 @@ class EditBasketScreen extends StatelessWidget {
                                 // mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
-                                      '${state.basket.itemQuantity(state.basket.items).entries.elementAt(index).value}x'),
+                                      '${state.basket.itemQuantity(state.basket.products).entries.elementAt(index).value}x'),
                                   SizedBox(
                                     width: 20,
                                   ),
                                   Expanded(
                                     child: Text(
-                                        '${state.basket.itemQuantity(state.basket.items).keys.elementAt(index).name}'),
+                                        '${state.basket.itemQuantity(state.basket.products).keys.elementAt(index).name}'),
                                   ),
                                   IconButton(
                                       onPressed: () {
                                         context.read<BasketBloc>()
-                                          ..add(RemoveAllItem(state.basket
-                                              .itemQuantity(state.basket.items)
+                                          ..add(RemoveAllProduct(state.basket
+                                              .itemQuantity(
+                                                  state.basket.products)
                                               .keys
                                               .elementAt(index)));
                                       },
@@ -148,8 +149,9 @@ class EditBasketScreen extends StatelessWidget {
                                   IconButton(
                                       onPressed: () {
                                         context.read<BasketBloc>()
-                                          ..add(RemoveItem(state.basket
-                                              .itemQuantity(state.basket.items)
+                                          ..add(RemoveProduct(state.basket
+                                              .itemQuantity(
+                                                  state.basket.products)
                                               .keys
                                               .elementAt(index)));
                                       },
@@ -157,8 +159,9 @@ class EditBasketScreen extends StatelessWidget {
                                   IconButton(
                                       onPressed: () {
                                         context.read<BasketBloc>()
-                                          ..add(AddItem(state.basket
-                                              .itemQuantity(state.basket.items)
+                                          ..add(AddProduct(state.basket
+                                              .itemQuantity(
+                                                  state.basket.products)
                                               .keys
                                               .elementAt(index)));
                                       },

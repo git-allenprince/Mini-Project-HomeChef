@@ -19,9 +19,7 @@ class BasketScreen extends StatelessWidget {
         actions: [
           IconButton(
               onPressed: () {
-
                 Navigator.of(context).pushNamed('/editbasket');
-
               },
               icon: Icon(Icons.edit))
         ],
@@ -32,7 +30,6 @@ class BasketScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               ElevatedButton(
-
                   style: ElevatedButton.styleFrom(
                       backgroundColor: Theme.of(context).primaryColor,
                       shape: RoundedRectangleBorder(),
@@ -109,7 +106,7 @@ class BasketScreen extends StatelessWidget {
                     child: CircularProgressIndicator(),
                   );
                 } else if (state is BasketLoaded) {
-                  return state.basket.items.length == 0
+                  return state.basket.products.length == 0
                       ? Container(
                           width: double.infinity,
                           margin: EdgeInsets.only(top: 5),
@@ -123,7 +120,7 @@ class BasketScreen extends StatelessWidget {
                       : ListView.builder(
                           shrinkWrap: true,
                           itemCount: state.basket
-                              .itemQuantity(state.basket.items)
+                              .itemQuantity(state.basket.products)
                               .keys
                               .length,
                           itemBuilder: (context, index) {
@@ -137,16 +134,16 @@ class BasketScreen extends StatelessWidget {
                               child: Row(
                                 children: [
                                   Text(
-                                      '${state.basket.itemQuantity(state.basket.items).entries.elementAt(index).value}x'),
+                                      '${state.basket.itemQuantity(state.basket.products).entries.elementAt(index).value}x'),
                                   SizedBox(
                                     width: 20,
                                   ),
                                   Expanded(
                                     child: Text(
-                                        '${state.basket.itemQuantity(state.basket.items).keys.elementAt(index).name}'),
+                                        '${state.basket.itemQuantity(state.basket.products).keys.elementAt(index).name}'),
                                   ),
                                   Text(
-                                      'Rs.${state.basket.itemQuantity(state.basket.items).keys.elementAt(index).price}'),
+                                      'Rs.${state.basket.itemQuantity(state.basket.products).keys.elementAt(index).price}'),
                                 ],
                               ),
                             );

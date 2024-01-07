@@ -68,9 +68,9 @@ class HomemakerDetailsScreen extends StatelessWidget {
                   padding: EdgeInsets.zero,
                   shrinkWrap: true,
                   physics: NeverScrollableScrollPhysics(),
-                  itemCount: homemaker.tags.length,
+                  itemCount: homemaker.categories.length,
                   itemBuilder: (context, index) {
-                    return _buildMenuItems(homemaker, context, index);
+                    return _buildproduct(homemaker, context, index);
                   })
             ],
           ),
@@ -78,14 +78,14 @@ class HomemakerDetailsScreen extends StatelessWidget {
   }
 }
 
-Widget _buildMenuItems(Homemaker homemaker, BuildContext context, int index) {
+Widget _buildproduct(Homemaker homemaker, BuildContext context, int index) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         child: Text(
-          homemaker.tags[index],
+          homemaker.categories[index].name,
           style: Theme.of(context)
               .textTheme
               .displayMedium!
@@ -93,9 +93,10 @@ Widget _buildMenuItems(Homemaker homemaker, BuildContext context, int index) {
         ),
       ),
       Column(
-        children: homemaker.menuItems
-            .where((menuItems) => menuItems.category == homemaker.tags[index])
-            .map((menuItems) => Column(
+        children: homemaker.products
+            .where((product) =>
+                product.category == homemaker.categories[index].name)
+            .map((product) => Column(
                   children: [
                     Container(
                       color: Colors.white,
@@ -103,14 +104,13 @@ Widget _buildMenuItems(Homemaker homemaker, BuildContext context, int index) {
                       child: ListTile(
                         dense: true,
                         contentPadding: EdgeInsets.zero,
-                        title: Text(menuItems.name,
+                        title: Text(product.name,
 // <<<<<<< allen_new_final
 //                             style: Theme.of(context).textTheme.headline3),
 // =======
                             style: Theme.of(context).textTheme.displaySmall),
-
                         subtitle: Text(
-                          menuItems.description,
+                          product.description,
                           style: Theme.of(context).textTheme.bodyLarge,
                         ),
                         trailing: Row(
@@ -118,7 +118,7 @@ Widget _buildMenuItems(Homemaker homemaker, BuildContext context, int index) {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             Text(
-                              '\₹${menuItems.price}',
+                              '\₹${product.price}',
                               style: Theme.of(context).textTheme.bodyLarge,
                             ),
 // <<<<<<< allen_new_final
@@ -134,7 +134,7 @@ Widget _buildMenuItems(Homemaker homemaker, BuildContext context, int index) {
                                 return IconButton(
                                     onPressed: () {
                                       context.read<BasketBloc>()
-                                        ..add(AddItem(menuItems));
+                                        ..add(AddProduct(product));
                                     },
                                     icon: Icon(
                                       Icons.add_circle,

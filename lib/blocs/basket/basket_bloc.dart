@@ -1,4 +1,3 @@
-
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
@@ -18,14 +17,14 @@ class BasketBloc extends Bloc<BasketEvent, BasketState> {
     if (event is StartBasket) {
       yield* _mapStartBasketToState();
     }
-    if (event is AddItem) {
-      yield* _mapAddItemToState(event, state);
+    if (event is AddProduct) {
+      yield* _mapAddProductToState(event, state);
     }
-    if (event is RemoveItem) {
-      yield* _mapRemoveItemToState(event, state);
+    if (event is RemoveProduct) {
+      yield* _mapRemoveProductToState(event, state);
     }
-    if (event is RemoveAllItem) {
-      yield* _mapRemoveAllItemToState(event, state);
+    if (event is RemoveAllProduct) {
+      yield* _mapRemoveAllProductToState(event, state);
     }
     if (event is ToggleSwitch) {
       yield* _mapToggleSwitchToState(event, state);
@@ -43,36 +42,38 @@ class BasketBloc extends Bloc<BasketEvent, BasketState> {
     } catch (_) {}
   }
 
-  Stream<BasketState> _mapAddItemToState(
-      AddItem event, BasketState state) async* {
+  Stream<BasketState> _mapAddProductToState(
+      AddProduct event, BasketState state) async* {
     if (state is BasketLoaded) {
       try {
         yield BasketLoaded(
             basket: state.basket.copyWith(
-                items: List.from(state.basket.items)..add(event.item)));
+                products: List.from(state.basket.products)
+                  ..add(event.product)));
       } catch (_) {}
     }
   }
 
-  Stream<BasketState> _mapRemoveItemToState(
-      RemoveItem event, BasketState state) async* {
+  Stream<BasketState> _mapRemoveProductToState(
+      RemoveProduct event, BasketState state) async* {
     if (state is BasketLoaded) {
       try {
         yield BasketLoaded(
             basket: state.basket.copyWith(
-                items: List.from(state.basket.items)..remove(event.item)));
+                products: List.from(state.basket.products)
+                  ..remove(event.product)));
       } catch (_) {}
     }
   }
 
-  Stream<BasketState> _mapRemoveAllItemToState(
-      RemoveAllItem event, BasketState state) async* {
+  Stream<BasketState> _mapRemoveAllProductToState(
+      RemoveAllProduct event, BasketState state) async* {
     if (state is BasketLoaded) {
       try {
         yield BasketLoaded(
             basket: state.basket.copyWith(
-                items: List.from(state.basket.items)
-                  ..removeWhere((item) => item == event.item)));
+                products: List.from(state.basket.products)
+                  ..removeWhere((product) => product == event.product)));
       } catch (_) {}
     }
   }
@@ -97,4 +98,3 @@ Stream<BasketState> _mapSelectDeliveryTimeToState(
     } catch (_) {}
   }
 }
-

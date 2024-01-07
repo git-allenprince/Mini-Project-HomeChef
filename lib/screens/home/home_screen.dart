@@ -1,5 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:homechef_v3/blocs/homemaker/homemaker_bloc.dart';
 import 'package:homechef_v3/models/models.dart';
 
 import '../../widgets/widgets.dart';
@@ -68,12 +70,30 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
             ),
-            ListView.builder(
-                shrinkWrap: true,
-                itemCount: Homemaker.homemakers.length,
-                itemBuilder: (context, index) {
-                  return HomemakerCard(homemaker: Homemaker.homemakers[index]);
-                })
+            BlocBuilder<HomemakerBloc, HomemakerState>(
+              builder: (context, state) {
+                if (state is HomemakerLoading) {
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+                if (state is HomemakerLoaded) {
+                  return Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ListView.builder(
+                        physics: NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        itemCount: state.homemakers.length,
+                        itemBuilder: (context, index) {
+                          return HomemakerCard(
+                              homemaker: state.homemakers[index]);
+                        }),
+                  );
+                } else {
+                  return Text('Something went wrong!');
+                }
+              },
+            ),
           ],
         ),
       ),
@@ -103,10 +123,10 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               FirebaseAuth.instance.signOut();
               // Add additional sign-out logic if needed
             },
-
             child: Text(
               'Sign Out',
-              style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),
+              style:
+                  TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
             ),
           ),
         ),
@@ -129,7 +149,6 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                 .titleLarge
                 ?.copyWith(color: Colors.white),
           ),
-
         ],
       ),
     );
