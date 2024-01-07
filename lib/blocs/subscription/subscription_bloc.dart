@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:homechef_v3/models/menu_item_model.dart';
-import 'package:homechef_v3/models/product_model.dart';
 import 'package:homechef_v3/models/subscription_model.dart';
 
 part 'subscription_event.dart';
@@ -40,8 +39,7 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
       try {
         yield SubscriptionLoaded(
             subscription: state.subscription.copyWith(
-                items: List.from(state.subscription.items)
-                  ..add(event.product)));
+                items: List.from(state.subscription.items)..add(event.item)));
       } catch (_) {}
     }
   }

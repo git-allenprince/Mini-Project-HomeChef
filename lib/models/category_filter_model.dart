@@ -2,7 +2,7 @@ import 'package:equatable/equatable.dart';
 import 'package:homechef_v3/models/category_model.dart';
 
 class CategoryFilter extends Equatable {
-  final String id;
+  final int id;
   final Category category;
   final bool value;
 
@@ -13,7 +13,7 @@ class CategoryFilter extends Equatable {
   });
 
   CategoryFilter copyWith({
-    String? id,
+    int? id,
     Category? category,
     bool? value,
   }) {
@@ -23,7 +23,11 @@ class CategoryFilter extends Equatable {
         value: value ?? this.value);
   }
 
-  List<Object?> get props => [id, category, value];
+  List<Object?> get props => [
+        id,
+        category,
+        value,
+      ];
 
   static List<CategoryFilter> filters = Category.categories
       .map((category) =>

@@ -1,14 +1,13 @@
 import 'package:equatable/equatable.dart';
 import 'package:homechef_v3/models/menu_item_model.dart';
-import 'package:homechef_v3/models/product_model.dart';
 
 class Subscription extends Equatable {
-  final List<Product> items;
+  final List<MenuItem> items;
 
-  Subscription({this.items = const <Product>[]});
+  Subscription({this.items = const <MenuItem>[]});
 
   Subscription copyWith({
-    List<Product>? items,
+    List<MenuItem>? items,
   }) {
     return Subscription(items: items ?? this.items);
   }

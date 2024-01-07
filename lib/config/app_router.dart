@@ -39,16 +39,16 @@ class AppRouter {
         return HomeScreen.route();
       case SplashScreen.routeName:
         return SplashScreen.route();
-      // case LoginScreen.routeName:
-      //   return LoginScreen.route();
-      // case CustomerLoginScreen.routeName:
-      //   return CustomerLoginScreen.route();
+      case LoginScreen.routeName:
+        return LoginScreen.route();
+      case CustomerLoginScreen.routeName:
+        return CustomerLoginScreen.route();
       case CustomerRegisterScreen.routeName:
         return CustomerRegisterScreen.route();
       case HomemakerRegisterScreen.routeName:
         return HomemakerRegisterScreen.route();
-      // case HomemakerLoginScreen.routeName:
-      //   return HomemakerLoginScreen.route();
+      case HomemakerLoginScreen.routeName:
+        return HomemakerLoginScreen.route();
       case HomeScreen.routeName:
         return HomeScreen.route();
       case CheckoutScreen.routeName:
@@ -70,8 +70,8 @@ class AppRouter {
       case LocationScreen.routeName:
         return LocationScreen.route();
 
-      // case PlateScreen.routeName:
-      //   return PlateScreen.route();
+      case PlateScreen.routeName:
+        return PlateScreen.route();
       case MainPage.routeName:
         return MainPage.route();
       case AuthPage.routeName:
