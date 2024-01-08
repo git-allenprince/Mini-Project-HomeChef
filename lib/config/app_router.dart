@@ -2,27 +2,15 @@
 
 import 'package:flutter/material.dart';
 
-import 'package:homechef_v3/firebase_stuff/auth_page.dart';
-import 'package:homechef_v3/firebase_stuff/main_page.dart';
-import 'package:homechef_v3/screens/Login/customerlogin.dart';
 import 'package:homechef_v3/screens/Login/forgot_pw_page.dart';
-import 'package:homechef_v3/screens/Login/homemakerlogin.dart';
-import 'package:homechef_v3/screens/Login/loginpagecombined.dart';
-import 'package:homechef_v3/models/homemaker_model.dart';
-import 'package:homechef_v3/screens/Profile/profileScreen.dart';
 
-import 'package:homechef_v3/screens/login/customerlogin.dart';
-import 'package:homechef_v3/screens/login/homemakerlogin.dart';
-import 'package:homechef_v3/screens/login/loginpagecombined.dart';
-import 'package:homechef_v3/models/homemaker_model.dart';
 import 'package:homechef_v3/screens/basket/basket_screen.dart';
 
 import 'package:homechef_v3/screens/checkout/checkout_screen.dart';
 import 'package:homechef_v3/screens/delivery_time/delivery_time_screen.dart';
 import 'package:homechef_v3/screens/edit_basket/edit_basket_screen.dart';
 import 'package:homechef_v3/screens/home/home_screen.dart';
-import 'package:homechef_v3/screens/homemaker_details/homemaker_details_screen.dart';
-import 'package:homechef_v3/screens/homemaker_listing/homemaker_listing_screen.dart';
+
 import 'package:homechef_v3/screens/location/location.dart';
 import 'package:homechef_v3/screens/payment/payment_screen.dart';
 import 'package:homechef_v3/screens/register/customer_register.dart';
@@ -39,16 +27,16 @@ class AppRouter {
         return HomeScreen.route();
       case SplashScreen.routeName:
         return SplashScreen.route();
-      case LoginScreen.routeName:
-        return LoginScreen.route();
-      case CustomerLoginScreen.routeName:
-        return CustomerLoginScreen.route();
+      // case LoginScreen.routeName:
+      //   return LoginScreen.route();
+      // case CustomerLoginScreen.routeName:
+      //   return CustomerLoginScreen.route();
       case CustomerRegisterScreen.routeName:
         return CustomerRegisterScreen.route();
       case HomemakerRegisterScreen.routeName:
         return HomemakerRegisterScreen.route();
-      case HomemakerLoginScreen.routeName:
-        return HomemakerLoginScreen.route();
+      // case HomemakerLoginScreen.routeName:
+      //   return HomemakerLoginScreen.route();
       case HomeScreen.routeName:
         return HomeScreen.route();
       case CheckoutScreen.routeName:
@@ -61,21 +49,19 @@ class AppRouter {
         return BasketScreen.route();
       case HomeScreen.routeName:
         return HomeScreen.route();
-      case HomemakerDetailsScreen.routeName:
-        return HomemakerDetailsScreen.route(
-            homemaker: settings.arguments as Homemaker);
-      case HomemakerListingScreen.routeName:
-        return HomemakerListingScreen.route(
-            homemakers: settings.arguments as List<Homemaker>);
+      // case HomemakerDetailsScreen.routeName:
+      //   return HomemakerDetailsScreen.route(arguments: {});
+      // case HomemakerListingScreen.routeName:
+      //   return HomemakerListingScreen.route(selectedItem: selectedItem);
       case LocationScreen.routeName:
         return LocationScreen.route();
 
-      case PlateScreen.routeName:
-        return PlateScreen.route();
-      case MainPage.routeName:
-        return MainPage.route();
-      case AuthPage.routeName:
-        return AuthPage.route();
+      // case PlateScreen.routeName:
+      //   return PlateScreen.route();
+      // case MainPage.routeName:
+      //   return MainPage.route();
+      // case AuthPage.routeName:
+      //   return AuthPage.route();
       case ForgotPasswordPage.routeName:
         return ForgotPasswordPage.route();
       // case ProfileScreen.routeName:

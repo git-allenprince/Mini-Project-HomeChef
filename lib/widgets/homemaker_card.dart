@@ -1,75 +1,76 @@
 import 'package:flutter/material.dart';
-import 'package:homechef_v3/models/models.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:homechef_v3/models/homemaker_model.dart';
+import 'package:homechef_v3/screens/homemaker_details/homemaker_details_screen.dart';
 import 'widgets.dart';
 
 class HomemakerCard extends StatelessWidget {
-  final Homemaker homemaker;
+  final DocumentSnapshot homemakerSnapshot;
 
-  const HomemakerCard({Key? key, required this.homemaker}) : super(key: key);
+  const HomemakerCard({
+    Key? key,
+    required this.homemakerSnapshot,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final homemakerData = homemakerSnapshot.data() as Map<String, dynamic>;
+    final homemakerId =
+        homemakerSnapshot.id; // Assuming the document ID is the homemakerId
+
     return InkWell(
       onTap: () {
-        Navigator.pushNamed(context, '/homemaker-details',
-            arguments: homemaker);
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) =>
+                HomemakerDetailsScreen(homemakerId: homemakerId),
+          ),
+        );
       },
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Stack(children: [
-              Container(
-                width: MediaQuery.of(context).size.width,
-                height: 150,
-                decoration: BoxDecoration(
+            Stack(
+              children: [
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: 150,
+                  decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(5.0),
                     image: DecorationImage(
-                        image: NetworkImage(homemaker.imageUrl),
-                        fit: BoxFit.cover)),
-              ),
-              Positioned(
-                top: 10,
-                right: 10,
-                child: Container(
-                  width: 60,
-                  height: 30,
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(5)),
-                  child: Align(
-                    alignment: Alignment.center,
-                    child: Text(
-                      '${homemaker.deliveryTime} min',
-                      style: Theme.of(context).textTheme.bodyText1,
+                      image: NetworkImage(homemakerData['image_url']),
+                      fit: BoxFit.cover,
                     ),
                   ),
                 ),
-              )
-            ]),
+              ],
+            ),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    homemaker.name,
-                    style: Theme.of(context).textTheme.headline5,
+                    homemakerData['store_name'],
+                    style: Theme.of(context).textTheme.headline3,
                   ),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  HomemakerTags(homemaker: homemaker),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  Text(
-                      '${homemaker.distance}km - \₹${homemaker.deliveryFee} delivery fee',
-                      style: Theme.of(context).textTheme.bodyText1)
+                  // Text(
+                  //   'Homemaker ID: $homemakerId', // Display homemakerId
+                  //   style: TextStyle(
+                  //     color: Colors.grey, // Customize color if needed
+                  //   ),
+                  // )
+                  // SizedBox(height: 5),
+                  // // Add other widgets for additional data display
+                  // Text(
+                  //   '${homemakerData['distance']}km - ₹${homemakerData['delivery_fee']} delivery fee',
+                  //   style: Theme.of(context).textTheme.bodyText1,
+                  // ),
                 ],
               ),
-            )
+            ),
           ],
         ),
       ),

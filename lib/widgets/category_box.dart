@@ -1,29 +1,52 @@
 import 'package:flutter/material.dart';
-import 'package:homechef_v3/models/category_model.dart';
-import 'package:homechef_v3/models/homemaker_model.dart';
-import 'package:homechef_v3/screens/homemaker_listing/homemaker_listing_screen.dart';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:homechef_v3/models/item_menu_model.dart';
+import '../screens/homemaker_listing/homemaker_listing_screen.dart';
 
 class CategoryBox extends StatelessWidget {
-  final Category category;
+  final ItemMenu category;
 
   const CategoryBox({Key? key, required this.category}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {
-        List<Homemaker> filteredHomemakers = Homemaker.homemakers
-            .where((homemaker) =>
-            homemaker.menuItems.any((menuItem) =>
-            menuItem.name.toLowerCase() ==
-                category.name.toLowerCase()))
-            .toList();
-        Navigator.pushNamed(
-          context,
-          HomemakerListingScreen.routeName,
-          arguments: filteredHomemakers,
-        );
+      onTap: () async {
+        try {
+          QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+              .collection('menus')
+              .where('name', isEqualTo: category.name.toLowerCase()) // Convert to lowercase
+              .get();
+
+          List<String> homemakerIds = [];
+
+          querySnapshot.docs.forEach((doc) {
+            if (doc.exists) {
+              Map<String, dynamic>? data = doc.data() as Map<String, dynamic>?;
+
+              if (data != null && data.containsKey('homemakerid')) {
+                homemakerIds.add(data['homemakerid'] as String);
+              }
+            }
+          });
+          print('Homemaker IDs for ${category.name}: $homemakerIds');
+          print('Query returned ${querySnapshot.size} documents for ${category.name}');
+          if (homemakerIds.isNotEmpty) {
+            print('Homemaker IDs for ${category.name}: $homemakerIds');
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (_) => HomemakerListingScreen(
+                  homemakerIds: homemakerIds,
+                ),
+              ),
+            );
+          } else {
+            print('No homemaker IDs found for ${category.name}');
+          }
+        } catch (e) {
+          print('Error fetching homemaker IDs: $e');
+        }
       },
       child: Container(
         width: 100,
@@ -42,8 +65,11 @@ class CategoryBox extends StatelessWidget {
                 width: 90,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(5.0),
+                  image: DecorationImage(
+                    image: AssetImage(category.imageUrl), // Use AssetImage for local assets
+                    fit: BoxFit.cover,
+                  ),
                 ),
-                child: category.image,
               ),
             ),
             Padding(
@@ -51,8 +77,8 @@ class CategoryBox extends StatelessWidget {
               child: Align(
                 alignment: Alignment.bottomCenter,
                 child: Text(
-                  category.name, style: TextStyle(fontWeight:FontWeight.bold),
-                  // Modify text styling as needed
+                  category.name,
+                  style: TextStyle(fontWeight: FontWeight.bold),
                 ),
               ),
             )

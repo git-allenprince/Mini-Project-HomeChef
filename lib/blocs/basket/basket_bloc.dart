@@ -1,11 +1,10 @@
-
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:homechef_v3/models/basket_model.dart';
 import 'package:homechef_v3/models/delivery_time_model.dart';
-import '../../models/models.dart';
+import 'package:homechef_v3/screens/homemaker_details/homemaker_details_screen.dart';
 part 'basket_event.dart';
 part 'basket_state.dart';
 
@@ -97,4 +96,3 @@ Stream<BasketState> _mapSelectDeliveryTimeToState(
     } catch (_) {}
   }
 }
-

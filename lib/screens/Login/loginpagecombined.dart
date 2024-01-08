@@ -14,7 +14,6 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-l
       backgroundColor: Colors.deepPurple,
       body: SafeArea(
         child: DefaultTabController(
@@ -28,30 +27,30 @@ l
                   child: TabBar(
                     isScrollable: true,
                     labelStyle: TextStyle(
-                      fontSize: 18,
-                      fontFamily: 'Cabin',
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold// Set text color to white
-                    ),
+                        fontSize: 18,
+                        fontFamily: 'Cabin',
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold // Set text color to white
+                        ),
                     labelPadding: EdgeInsets.symmetric(horizontal: 30),
                     unselectedLabelStyle: TextStyle(
-                      fontSize: 18,
-                      color: Colors.white.withOpacity(0.5),
-                        fontWeight: FontWeight.bold// Set unselected text color to semi-transparent white
-                    ),
+                        fontSize: 18,
+                        color: Colors.white.withOpacity(0.5),
+                        fontWeight: FontWeight
+                            .bold // Set unselected text color to semi-transparent white
+                        ),
                     indicatorPadding: EdgeInsets.all(0),
                     tabs: [
                       Tab(text: 'Customer'),
                       Tab(text: 'Homemaker'),
                     ],
                   ),
-
                 ),
               ),
               Expanded(
                 child: TabBarView(
                   children: [
-                    CustomerLoginScreen(showCustomerRegisterScreen: () {  },),
+                    CustomerLoginScreen(),
                     HomemakerLoginScreen(),
                   ],
                 ),
@@ -63,4 +62,3 @@ l
     );
   }
 }
-

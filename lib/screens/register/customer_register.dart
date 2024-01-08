@@ -2,16 +2,17 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:homechef_v3/screens/Login/customerlogin.dart';
+import 'package:homechef_v3/screens/Login/loginpagecombined.dart';
 
 class CustomerRegisterScreen extends StatefulWidget {
-  const CustomerRegisterScreen({Key? key,required this.showCustomerLoginScreen}) : super(key: key);
-  final VoidCallback showCustomerLoginScreen;
+  const CustomerRegisterScreen({Key? key}) : super(key: key);
   static const String routeName = '/customerregister';
 
   static Route route() {
     return MaterialPageRoute(
-      builder: (_) => CustomerRegisterScreen(showCustomerLoginScreen: () {  },),
-      settings: RouteSettings(name: routeName),
+      builder: (_) => const CustomerRegisterScreen(),
+      settings: const RouteSettings(name: routeName),
     );
   }
 
@@ -22,11 +23,15 @@ class CustomerRegisterScreen extends StatefulWidget {
 class _CustomerRegisterScreenState extends State<CustomerRegisterScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _confirmPasswordController = TextEditingController();
-  final TextEditingController _firstNameController=TextEditingController();
-  final TextEditingController _lastNameController=TextEditingController();
-  final TextEditingController _ageController=TextEditingController();
-  final TextEditingController _locationController=TextEditingController();
+  final TextEditingController _confirmPasswordController =
+      TextEditingController();
+  final TextEditingController _firstNameController = TextEditingController();
+  final TextEditingController _lastNameController = TextEditingController();
+  final TextEditingController _ageController = TextEditingController();
+  final TextEditingController _locationController = TextEditingController();
+
+  bool _isSignedUp = false;
+
   @override
   void dispose() {
     _emailController.dispose();
@@ -39,25 +44,41 @@ class _CustomerRegisterScreenState extends State<CustomerRegisterScreen> {
     super.dispose();
   }
 
-  Future signup() async{
-    if(passwordConfirmed()){
-      //create user
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+  Future signup() async {
+    if (passwordConfirmed()) {
+      try {
+        final userCredential =
+            await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: _emailController.text.trim(),
-          password: _passwordController.text.trim());
+          password: _passwordController.text.trim(),
+        );
 
-      //add user
-      addUserDetails(
-        _firstNameController.text.trim(),
-        _lastNameController.text.trim(),
-        _locationController.text.trim(),
-        int.parse(_ageController.text.trim()),
-        _emailController.text.trim()
-      );
+        if (userCredential.user != null) {
+          await addUserDetails(
+            _firstNameController.text.trim(),
+            _lastNameController.text.trim(),
+            _locationController.text.trim(),
+            int.parse(_ageController.text.trim()),
+            _emailController.text.trim(),
+          );
+          // Navigate to the login screen after successful registration
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => LoginScreen()));
+        }
+      } catch (e) {
+        print('Error occurred while registering: $e');
+        // Display an error message or handle the registration error
+      }
     }
   }
 
-  Future<void> addUserDetails(String firstName, String lastName, String location, int age, String email) async {
+  Future<void> addUserDetails(
+    String firstName,
+    String lastName,
+    String location,
+    int age,
+    String email,
+  ) async {
     try {
       await FirebaseFirestore.instance.collection('users').add({
         'first name': firstName,
@@ -67,17 +88,17 @@ class _CustomerRegisterScreenState extends State<CustomerRegisterScreen> {
         'email': email,
       });
       print('Data added to Firestore successfully');
+      setState(() {
+        _isSignedUp = true; // Set _isSignedUp to true after successful signup
+      });
     } catch (e) {
       print('Error adding data to Firestore: $e');
     }
   }
-  bool passwordConfirmed(){
-    if(_passwordController.text.trim()==_confirmPasswordController.text.trim()){
-      return true;
-    }
-    else{
-      return false;
-    }
+
+  bool passwordConfirmed() {
+    return _passwordController.text.trim() ==
+        _confirmPasswordController.text.trim();
   }
 
   @override
@@ -104,28 +125,28 @@ class _CustomerRegisterScreenState extends State<CustomerRegisterScreen> {
                 SizedBox(
                   height: 50,
                 ),
-                //first name
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 25.0),
                   child: TextField(
                     controller: _firstNameController,
                     decoration: InputDecoration(
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.white),
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.deepPurple),
-                            borderRadius: BorderRadius.circular(12)),
-                        hintText: 'First name',
-                        fillColor: Colors.grey[200],
-                        filled: true),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.white),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.deepPurple),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      hintText: 'First name',
+                      fillColor: Colors.grey[200],
+                      filled: true,
+                    ),
                   ),
                 ),
                 SizedBox(
                   height: 10,
                 ),
-                //email textfield
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 25.0),
                   child: TextField(
@@ -206,8 +227,6 @@ class _CustomerRegisterScreenState extends State<CustomerRegisterScreen> {
                 SizedBox(
                   height: 10,
                 ),
-
-                //password textfield
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 25.0),
                   child: TextField(
@@ -229,7 +248,6 @@ class _CustomerRegisterScreenState extends State<CustomerRegisterScreen> {
                 SizedBox(
                   height: 10,
                 ),
-                //confirm password textfield
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 25.0),
                   child: TextField(
@@ -251,34 +269,43 @@ class _CustomerRegisterScreenState extends State<CustomerRegisterScreen> {
                 SizedBox(
                   height: 20,
                 ),
-
-              //login button
-
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 25.0),
                   child: GestureDetector(
-                    onTap: signup,
+                    onTap: () async {
+                      await signup();
+                      // Show a SnackBar after successful signup
+                      if (_isSignedUp) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text('Sign up successful!'),
+                            duration: Duration(
+                                seconds: 2), // Adjust duration as needed
+                          ),
+                        );
+                      }
+                    },
                     child: Container(
                       padding: EdgeInsets.all(20),
                       decoration: BoxDecoration(
-                          color: Colors.deepPurple,
-                          borderRadius: BorderRadius.circular(12)),
+                        color: Colors.deepPurple,
+                        borderRadius: BorderRadius.circular(12),
+                      ),
                       child: Center(
-                          child: Text(
-                        'Sign Up',
-                        style: Theme.of(context).textTheme.headline3!.copyWith(
-                              color: Colors.white,
-                            ),
-                      )),
+                        child: Text(
+                          'Sign Up',
+                          style:
+                              Theme.of(context).textTheme.headline3!.copyWith(
+                                    color: Colors.white,
+                                  ),
+                        ),
+                      ),
                     ),
                   ),
                 ),
                 SizedBox(
                   height: 25,
                 ),
-
-              //not a member,register
-
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -287,13 +314,17 @@ class _CustomerRegisterScreenState extends State<CustomerRegisterScreen> {
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                     GestureDetector(
-
-                      onTap: widget.showCustomerLoginScreen,
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => LoginScreen()),
+                        );
+                      },
                       child: Text(
                         ' Login now',
                         style: TextStyle(
                             color: Colors.blue, fontWeight: FontWeight.bold),
-
                       ),
                     )
                   ],
@@ -306,6 +337,8 @@ class _CustomerRegisterScreenState extends State<CustomerRegisterScreen> {
     );
   }
 }
+
+
 
 //return PopScope(
 //     canPop: false,

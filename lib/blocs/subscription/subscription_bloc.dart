@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:homechef_v3/models/menu_item_model.dart';
+import 'package:homechef_v3/screens/homemaker_details/homemaker_details_screen.dart';
 import 'package:homechef_v3/models/subscription_model.dart';
 
 part 'subscription_event.dart';

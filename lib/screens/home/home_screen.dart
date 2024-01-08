@@ -1,8 +1,11 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:homechef_v3/models/item_menu_model.dart';
 import 'package:homechef_v3/models/models.dart';
-
+import 'package:homechef_v3/screens/Login/loginpagecombined.dart';
 import '../../widgets/widgets.dart';
+import 'package:homechef_v3/widgets/homemaker_card.dart';
 
 class HomeScreen extends StatelessWidget {
   static const String routeName = '/homescreen';
@@ -38,9 +41,9 @@ class HomeScreen extends StatelessWidget {
                 child: ListView.builder(
                     scrollDirection: Axis.horizontal,
                     shrinkWrap: true,
-                    itemCount: Category.categories.length,
+                    itemCount: ItemMenu.itemMenus.length,
                     itemBuilder: (context, index) {
-                      return CategoryBox(category: Category.categories[index]);
+                      return CategoryBox(category: ItemMenu.itemMenus[index]);
                     }),
               ),
             ),
@@ -57,7 +60,7 @@ class HomeScreen extends StatelessWidget {
                     }),
               ),
             ),
-            // FoodSearchBox(),
+            FoodSearchBox(),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Align(
@@ -68,12 +71,33 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
             ),
-            ListView.builder(
-                shrinkWrap: true,
-                itemCount: Homemaker.homemakers.length,
-                itemBuilder: (context, index) {
-                  return HomemakerCard(homemaker: Homemaker.homemakers[index]);
-                })
+            StreamBuilder<QuerySnapshot>(
+              stream: FirebaseFirestore.instance
+                  .collection('homemakerDetails')
+                  .snapshots(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return CircularProgressIndicator();
+                }
+                if (snapshot.hasError) {
+                  return Text('Error: ${snapshot.error}');
+                }
+                if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+                  return Text('No homemakers available');
+                }
+
+                final homemakers = snapshot.data!.docs.map((doc) {
+                  final homemakerData = doc.data() as Map<String, dynamic>;
+                  return HomemakerCard(
+                    homemakerSnapshot: doc,
+                  ); // Assuming HomemakerCard requires a DocumentSnapshot
+                }).toList();
+
+                return Column(
+                  children: homemakers,
+                );
+              },
+            ),
           ],
         ),
       ),
@@ -99,14 +123,18 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8.0),
           child: MaterialButton(
-            onPressed: () {
-              FirebaseAuth.instance.signOut();
-              // Add additional sign-out logic if needed
+            onPressed: () async {
+              await FirebaseAuth.instance.signOut();
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(builder: (_) => LoginScreen()),
+                    (route) => false,
+              );
             },
-
             child: Text(
               'Sign Out',
-              style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),
+              style:
+                  TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
             ),
           ),
         ),
@@ -129,7 +157,6 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                 .titleLarge
                 ?.copyWith(color: Colors.white),
           ),
-
         ],
       ),
     );

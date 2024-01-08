@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:homechef_v3/firebase_stuff/main_page.dart';
-
+import 'package:homechef_v3/screens/Login/loginpagecombined.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -8,7 +8,8 @@ class SplashScreen extends StatefulWidget {
   static const String routeName = '/splash';
   static Route route() {
     return MaterialPageRoute(
-        builder: (_) => SplashScreen(), settings: RouteSettings(name: routeName));
+        builder: (_) => SplashScreen(),
+        settings: RouteSettings(name: routeName));
   }
 
   @override
@@ -27,7 +28,7 @@ class _SplashScreenState extends State<SplashScreen> {
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
-        builder: (context) => MainPage(),
+        builder: (context) => LoginScreen(),
       ),
     );
   }
@@ -39,7 +40,7 @@ class _SplashScreenState extends State<SplashScreen> {
       body: Center(
         child: Container(
           child: Image.asset(
-             'assets/logo.png',
+            'assets/logo.png',
             height: 300,
           ),
         ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:homechef_v3/screens/home/home_screen.dart';
 
 class PaymentScreen extends StatelessWidget {
   static const String routeName = '/payment';
@@ -23,7 +24,12 @@ class PaymentScreen extends StatelessWidget {
                       shape: RoundedRectangleBorder(),
                       padding: const EdgeInsets.symmetric(horizontal: 50)),
                   onPressed: () {
-                    Navigator.pushNamed(context, '/');
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => HomeScreen()
+                      ),
+                    );
                   },
                   child: Text('Go Back',
                       style: Theme.of(context)

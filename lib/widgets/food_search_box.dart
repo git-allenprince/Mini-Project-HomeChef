@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-
-import 'package:homechef_v3/models/models.dart';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:homechef_v3/screens/homemaker_listing/homemaker_listing_screen.dart';
 
 class FoodSearchBox extends StatefulWidget {
   const FoodSearchBox({Key? key}) : super(key: key);
@@ -11,16 +10,50 @@ class FoodSearchBox extends StatefulWidget {
 }
 
 class _FoodSearchBoxState extends State<FoodSearchBox> {
-  List<MenuItem> menuItems = MenuItem.menuItems; // Accessing the list from MenuItem model
+  TextEditingController _searchController = TextEditingController();
+  late Stream<List<String>> _menuItemsStream;
+  List<String> _menuItems = [];
 
-  List<MenuItem> filteredItems = [];
+  @override
+  void initState() {
+    super.initState();
+    _menuItemsStream = _fetchMenuItems();
+  }
 
-  void filterItems(String query) {
-    setState(() {
-      filteredItems = menuItems
-          .where((item) => item.name.toLowerCase().contains(query.toLowerCase()))
-          .toList();
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
+  }
+
+  Stream<List<String>> _fetchMenuItems() {
+    return FirebaseFirestore.instance
+        .collection('menus')
+        .snapshots()
+        .map((snapshot) {
+      List<String> items = [];
+      for (var doc in snapshot.docs) {
+        String itemName = doc['name'];
+        items.add(itemName);
+      }
+      return items;
     });
+  }
+
+  Future<List<String>> _fetchHomemakersForItem(String itemName) async {
+    List<String> homemakerIds = [];
+
+    QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+        .collection('menus')
+        .where('name', isEqualTo: itemName)
+        .get();
+
+    for (var doc in querySnapshot.docs) {
+      String homemakerId = doc['homemakerid'];
+      homemakerIds.add(homemakerId);
+    }
+
+    return homemakerIds;
   }
 
   @override
@@ -31,73 +64,53 @@ class _FoodSearchBoxState extends State<FoodSearchBox> {
         children: [
           Expanded(
             child: TextFormField(
-              onChanged: filterItems,
+              controller: _searchController,
               decoration: InputDecoration(
-// <<<<<<< allen_new_final
                 filled: true,
-                fillColor: Colors.white,
+                fillColor: Colors.grey[200],
                 hintText: 'What would you like to eat?',
-                suffixIcon: Icon(
-                  Icons.search,
-                  color: Theme.of(context).primaryColor,
+                suffixIcon: IconButton(
+                  icon: Icon(
+                    Icons.search,
+                    color: Theme.of(context).primaryColor,
+                  ),
+                  onPressed: () async {
+                    String query = _searchController.text.trim();
+                    if (query.isNotEmpty) {
+                      List<String> homemakerIds =
+                          await _fetchHomemakersForItem(query);
+                      if (homemakerIds.isNotEmpty) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => HomemakerListingScreen(
+                                homemakerIds: homemakerIds),
+                          ),
+                        );
+                      } else {
+                        // Handle when no homemakers are found for the searched item
+                        print('No homemakers found for $query');
+                      }
+                    } else {
+                      // Handle when no search query is entered
+                      print('Please enter a search query.');
+                    }
+                  },
                 ),
-                contentPadding: const EdgeInsets.only(left: 20, bottom: 5, top: 12.5),
+                contentPadding:
+                    const EdgeInsets.only(left: 20, bottom: 5, top: 12.5),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10),
-                  borderSide: BorderSide(color: Colors.white),
+                  borderSide: BorderSide(color: Colors.deepPurple),
                 ),
                 enabledBorder: UnderlineInputBorder(
                   borderSide: BorderSide(color: Colors.white),
                   borderRadius: BorderRadius.circular(10),
                 ),
               ),
-// =======
-//                   filled: true,
-//                   fillColor: Colors.white,
-//                   hintText: 'What would you like to eat?',
-//                   suffixIcon: Icon(
-//                     Icons.search,
-//                     color: Theme.of(context).primaryColor,
-//                   ),
-//                   contentPadding:
-//                       const EdgeInsets.only(left: 20, bottom: 5, top: 12.5),
-//                   focusedBorder: OutlineInputBorder(
-//                       borderRadius: BorderRadius.circular(10),
-//                       borderSide: BorderSide(color: Colors.white)),
-//                   enabledBorder: UnderlineInputBorder(
-//                       borderSide: BorderSide(color: Colors.white),
-//                       borderRadius: BorderRadius.circular(10))),
-// >>>>>>> master
             ),
           ),
-          SizedBox(
-            width: 10,
-          ),
-// <<<<<<< allen_new_final
-          Container(
-            width: 50,
-            height: 50,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(5),
-            ),
-            child: IconButton(
-              icon: Icon(Icons.menu, color: Theme.of(context).primaryColor),
-              onPressed: () {},
-            ),
-          )
-// =======
-          // Container(
-          //   width: 50,
-          //   height: 50,
-          //   decoration: BoxDecoration(
-          //       color: Colors.white, borderRadius: BorderRadius.circular(5)),
-          //   child: IconButton(
-          //     icon: Icon(Icons.menu, color: Theme.of(context).primaryColor),
-          //     onPressed: () {},
-          //   ),
-          // )
-// >>>>>>> master
+
         ],
       ),
     );

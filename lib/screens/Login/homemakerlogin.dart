@@ -1,11 +1,11 @@
-import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
+import 'package:homechef_v3/screens/menuManagement/menu_management_screen.dart';
+import 'package:homechef_v3/screens/register/homemaker_register.dart';
+import 'package:homechef_v3/screens/Login/forgot_pw_page.dart';
 
 class HomemakerLoginScreen extends StatefulWidget {
-  // final VoidCallbackAction
   const HomemakerLoginScreen({Key? key}) : super(key: key);
   static const String routeName = '/homemakerlogin';
 
@@ -20,15 +20,35 @@ class HomemakerLoginScreen extends StatefulWidget {
 }
 
 class _HomemakerLoginScreenState extends State<HomemakerLoginScreen> {
-
-  //text controllers
+  // Text controllers
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
-  Future login() async {
-    await FirebaseAuth.instance.signInWithEmailAndPassword(
+  Future<void> login() async {
+    try {
+      UserCredential userCredential =
+          await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: _emailController.text.trim(),
-        password: _passwordController.text.trim());
+        password: _passwordController.text.trim(),
+      );
+
+      User? user = userCredential.user;
+      if (user != null) {
+        // Retrieve homemakerId from the user's profile
+        String homemakerId = user.uid; // Use the unique user ID as homemaker ID
+
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) =>
+                MenuManagementScreen(homemakerId: homemakerId),
+          ),
+        );
+      }
+    } catch (e) {
+      print('Error occurred while logging in: $e');
+      // Display an error message or handle the login error
+    }
   }
 
   @override
@@ -36,7 +56,6 @@ class _HomemakerLoginScreenState extends State<HomemakerLoginScreen> {
     _emailController.dispose();
     _passwordController.dispose();
     super.dispose();
-
   }
 
   @override
@@ -72,56 +91,86 @@ class _HomemakerLoginScreenState extends State<HomemakerLoginScreen> {
                   height: 50,
                 ),
 
-                //email textfield
+                // Email text field
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 25.0),
                   child: TextField(
                     controller: _emailController,
                     decoration: InputDecoration(
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.white),
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.deepPurple),
-                            borderRadius: BorderRadius.circular(12)),
-                        hintText: 'Email',
-                        fillColor: Colors.grey[200],
-                        filled: true),
-
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.white),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.deepPurple),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      hintText: 'Email',
+                      fillColor: Colors.grey[200],
+                      filled: true,
+                    ),
                   ),
                 ),
                 SizedBox(
                   height: 10,
                 ),
 
-
-                //password textfield
+                // Password text field
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 25.0),
                   child: TextField(
                     obscureText: true,
                     controller: _passwordController,
                     decoration: InputDecoration(
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.white),
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.deepPurple),
-                            borderRadius: BorderRadius.circular(12)),
-                        hintText: 'Password',
-                        fillColor: Colors.grey[200],
-                        filled: true),
-
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.white),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.deepPurple),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      hintText: 'Password',
+                      fillColor: Colors.grey[200],
+                      filled: true,
+                    ),
                   ),
                 ),
                 SizedBox(
                   height: 20,
                 ),
 
-                //login button
+                // Forgot password link
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ForgotPasswordPage(),
+                            ),
+                          );
+                        },
+                        child: Text(
+                          'Forgot Password?',
+                          style: TextStyle(
+                            color: Colors.blue,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
 
+                // Login button
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 25.0),
                   child: GestureDetector(
@@ -129,15 +178,18 @@ class _HomemakerLoginScreenState extends State<HomemakerLoginScreen> {
                     child: Container(
                       padding: EdgeInsets.all(20),
                       decoration: BoxDecoration(
-                          color: Colors.deepPurple,
-                          borderRadius: BorderRadius.circular(12)),
+                        color: Colors.deepPurple,
+                        borderRadius: BorderRadius.circular(12),
+                      ),
                       child: Center(
-                          child: Text(
-                        'Log in',
-                        style: Theme.of(context).textTheme.headline3!.copyWith(
-                              color: Colors.white,
-                            ),
-                      )),
+                        child: Text(
+                          'Log in',
+                          style:
+                              Theme.of(context).textTheme.headline3!.copyWith(
+                                    color: Colors.white,
+                                  ),
+                        ),
+                      ),
                     ),
                   ),
                 ),
@@ -145,8 +197,7 @@ class _HomemakerLoginScreenState extends State<HomemakerLoginScreen> {
                   height: 25,
                 ),
 
-                //not a member,register
-
+                // Not a member, register link
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -155,13 +206,20 @@ class _HomemakerLoginScreenState extends State<HomemakerLoginScreen> {
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                     GestureDetector(
-                      onTap: (){
-
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => HomemakerRegisterScreen(),
+                          ),
+                        );
                       },
                       child: Text(
                         ' Register now',
                         style: TextStyle(
-                            color: Colors.blue, fontWeight: FontWeight.bold),
+                          color: Colors.blue,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     )
                   ],
@@ -174,145 +232,3 @@ class _HomemakerLoginScreenState extends State<HomemakerLoginScreen> {
     );
   }
 }
-
-
-//
-// class HomemakerLoginScreen extends StatefulWidget {
-//   const HomemakerLoginScreen({Key? key}) : super(key: key);
-//   static const String routeName = '/homemakerlogin';
-//
-//   static Route route() {
-//     return MaterialPageRoute(
-//         builder: (_) => HomemakerLoginScreen(),
-//         settings: RouteSettings(name: routeName));
-//   }
-//
-//   @override
-//   _HomemakerLoginScreenState createState() => _HomemakerLoginScreenState();
-// }
-//
-// class _HomemakerLoginScreenState extends State<HomemakerLoginScreen> {
-//   final TextEditingController _emailController = TextEditingController();
-//   final TextEditingController _passwordController = TextEditingController();
-//
-//   Future<void> _login() async {
-//     if (_emailController.text == '1' && _passwordController.text == '2') {
-//       print("User logged in: ${_emailController.text}");
-//       Navigator.pushNamed(context, '/');
-//     } else {
-//       print("Invalid credentials");
-//     }
-//   }
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return PopScope(
-//       canPop: false,
-//       child: Scaffold(
-//         appBar: AppBar(
-//           backgroundColor: Colors.deepPurple,
-//           automaticallyImplyLeading: false,
-//           title: Text(
-//             'Hey there, Chef',
-//             style: TextStyle(
-//                 color: Colors.white,
-//                 fontFamily: 'Signika',
-//                 fontSize: 40,
-//                 fontWeight: FontWeight.bold),
-//           ),
-//         ),
-//         body: Container(
-//           decoration: BoxDecoration(
-//             color: Colors.deepPurple,
-//           ),
-//           child: Padding(
-//             padding: const EdgeInsets.all(16.0),
-//             child: Column(
-//               // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-//               children: [
-//                 SizedBox(
-//                   height: 50,
-//                 ),
-//                 TextField(
-//                   style: TextStyle(color: Colors.white),
-//                   controller: _emailController,
-//                   decoration: InputDecoration(
-//                     labelText: 'Email',
-//                     prefixIcon: Icon(Icons.email,
-//                         color: Colors.white), // set icon color
-//                     focusColor: Colors.deepPurple,
-//                     labelStyle:
-//                         TextStyle(color: Colors.white), // set label color
-//                     enabledBorder: UnderlineInputBorder(
-//                       borderSide: BorderSide(
-//                           color: Colors.white), // set underline color
-//                     ),
-//                     focusedBorder: UnderlineInputBorder(
-//                       borderSide: BorderSide(
-//                           color: Colors.white), // set focused underline color
-//                     ),
-//                   ),
-//                 ),
-//                 SizedBox(
-//                   height: 10,
-//                 ),
-//                 TextFormField(
-//                   style: TextStyle(color: Colors.white),
-//                   controller: _passwordController,
-//                   decoration: InputDecoration(
-//                     labelText: 'Password',
-//                     prefixIcon: Icon(Icons.email,
-//                         color: Colors.white), // set icon color
-//                     focusColor: Colors.deepPurple,
-//                     labelStyle:
-//                         TextStyle(color: Colors.white), // set label color
-//                     enabledBorder: UnderlineInputBorder(
-//                       borderSide: BorderSide(
-//                           color: Colors.white), // set underline color
-//                     ),
-//                     focusedBorder: UnderlineInputBorder(
-//                       borderSide: BorderSide(
-//                           color: Colors.white), // set focused underline color
-//                     ),
-//                   ),
-//                 ),
-//                 SizedBox(height: 60),
-//                 ElevatedButton(
-//                   onPressed: _login,
-//                   child: Text('Login'),
-//                 ),
-//                 SizedBox(
-//                   height: 30,
-//                 ),
-//                 GestureDetector(
-//                   onTap: () {
-//                     // Navigate to the signup page
-//                     Navigator.pushNamed(context, '/homemakerregister');
-//                   },
-//                   child: Row(
-//                     mainAxisAlignment: MainAxisAlignment.center,
-//                     children: [
-//                       const SizedBox(height: 55),
-//                       Text(
-//                         'Wanna join the community?',
-//                         style: TextStyle(color: Colors.white),
-//                       ),
-//                       const SizedBox(width: 4),
-//                       const Text(
-//                         'Apply Here',
-//                         style: TextStyle(
-//                           color: Colors.blue,
-//                           fontWeight: FontWeight.bold,
-//                         ),
-//                       ),
-//                     ],
-//                   ),
-//                 )
-//               ],
-//             ),
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }
