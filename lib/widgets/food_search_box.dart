@@ -45,7 +45,7 @@ class _FoodSearchBoxState extends State<FoodSearchBox> {
 
     QuerySnapshot querySnapshot = await FirebaseFirestore.instance
         .collection('menus')
-        .where('name', isEqualTo: itemName)
+        .where('name', isEqualTo: itemName.toLowerCase())
         .get();
 
     for (var doc in querySnapshot.docs) {
@@ -110,7 +110,6 @@ class _FoodSearchBoxState extends State<FoodSearchBox> {
               ),
             ),
           ),
-
         ],
       ),
     );

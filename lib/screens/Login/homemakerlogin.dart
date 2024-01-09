@@ -46,8 +46,47 @@ class _HomemakerLoginScreenState extends State<HomemakerLoginScreen> {
         );
       }
     } catch (e) {
-      print('Error occurred while logging in: $e');
+      String errorMessage = 'Error occurred while logging in';
+
+      if (e is FirebaseAuthException) {
+        switch (e.code) {
+          case 'invalid-email':
+            errorMessage = 'Invalid email address';
+            break;
+          case 'user-not-found':
+            errorMessage = 'User not found';
+            break;
+          case 'wrong-password':
+            errorMessage = 'Invalid password';
+            break;
+          case 'user-disabled':
+            errorMessage = 'User account has been disabled';
+            break;
+          // Handle other FirebaseAuthException error codes if needed
+          default:
+            errorMessage = 'Login failed. Please try again later';
+        }
+      }
+
+      print('Error occurred while logging in: $errorMessage');
       // Display an error message or handle the login error
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text('Login Error'),
+            content: Text(errorMessage),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text('OK'),
+              ),
+            ],
+          );
+        },
+      );
     }
   }
 

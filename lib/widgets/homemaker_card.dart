@@ -15,8 +15,7 @@ class HomemakerCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final homemakerData = homemakerSnapshot.data() as Map<String, dynamic>;
-    final homemakerId =
-        homemakerSnapshot.id; // Assuming the document ID is the homemakerId
+    final homemakerId = homemakerSnapshot.id;
 
     return InkWell(
       onTap: () {
@@ -39,11 +38,17 @@ class HomemakerCard extends StatelessWidget {
                   height: 150,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(5.0),
-                    image: DecorationImage(
-                      image: NetworkImage(homemakerData['image_url']),
-                      fit: BoxFit.cover,
-                    ),
+                    color: Colors
+                        .grey, // Placeholder color while loading or if image is null
                   ),
+                  child: homemakerData['image_url'] != null
+                      ? Image.network(
+                          homemakerData['image_url'],
+                          fit: BoxFit.cover,
+                        )
+                      : Icon(Icons.image,
+                          size: 50,
+                          color: Colors.white), // Placeholder icon or widget
                 ),
               ],
             ),
@@ -53,17 +58,12 @@ class HomemakerCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    homemakerData['store_name'],
+                    homemakerData['store_name'] ??
+                        '', // Display store_name; use empty string if null
                     style: Theme.of(context).textTheme.headline3,
                   ),
-                  // Text(
-                  //   'Homemaker ID: $homemakerId', // Display homemakerId
-                  //   style: TextStyle(
-                  //     color: Colors.grey, // Customize color if needed
-                  //   ),
-                  // )
-                  // SizedBox(height: 5),
-                  // // Add other widgets for additional data display
+                  // Add other widgets for additional data display
+                  // For example:
                   // Text(
                   //   '${homemakerData['distance']}km - ₹${homemakerData['delivery_fee']} delivery fee',
                   //   style: Theme.of(context).textTheme.bodyText1,

@@ -395,6 +395,7 @@ class _HomemakerRegisterScreenState extends State<HomemakerRegisterScreen> {
                             color: Colors.blue, fontWeight: FontWeight.bold),
                       ),
                     ),
+                    SizedBox(height: 25),
                   ],
                 ),
               ],
